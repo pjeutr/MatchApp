@@ -203,18 +203,18 @@ if(! isset($id)) {
     }); //END $(document).ready()
 
     var frm = $('#led_form');
-    // document.led_form.addEventListener('change', function(obj) {
-    //     console.log(obj.target.name + "=" + obj.target.value);
+    document.led_form.addEventListener('change', function(obj) {
+        console.log(obj.target.name + "=" + obj.target.value);
           
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: '/?/gpio/' +obj.target.name+ '/' +obj.target.value,
-    //         //data: frm.serialize(),
-    //         success: function(data){
-    //             //$('#ledimg_content').html(data);
-    //         }
-    //     });
-    // });
+        $.ajax({
+            type: 'GET',
+            url: '/?/gpio/' +obj.target.name+ '/' +obj.target.value,
+            //data: frm.serialize(),
+            success: function(data){
+                //$('#ledimg_content').html(data);
+            }
+        });
+    });
 
     var key_frm = $('#key_form');
     function key_autoload(){

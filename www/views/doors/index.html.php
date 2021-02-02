@@ -25,7 +25,7 @@ set('title', 'Users');
 	<td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
     <td><?= $row->created_at ?></td>
-    <td><?= iconLink_to("Edit", 'doors/'.$row->id.'/edit', 'btn-sm') ?>
+    <td><?= iconLink_to("Edit", 'doors/'.$row->id.'/edit', 'btn-sm', null) ?>
     	&nbsp;
     	<?= deleteLink_to('Delete', 'doors', $row->id) ?>
 </tr>

@@ -30,17 +30,17 @@ set('title', 'Groups');
     <th>Timezone</th>
 </thead>
 <tbody>
-<?php foreach ($doors as $row) { ?>
+<?php foreach ($doors as $row2) { ?>
 <tr>
-    <td><?= $row->name ?></td>
+    <td><?= $row2->name ?></td>
     <td>24 hours</td>
-    <td><?= iconLink_to("Edit", 'access/'.$row->id.'/edit', 'btn-sm') ?>
+    <td><?= iconLink_to("Edit", 'access/'.$row2->id.'/edit', 'btn-sm', null) ?>
 </tr>
 <?php } ?>
     </tbody>
 </table> 
     </td>
-    <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-sm') ?>
+    <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-sm', null) ?>
     	&nbsp;
     	<?= deleteLink_to('Delete', 'groups', $row->id) ?>
 </tr>

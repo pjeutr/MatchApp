@@ -27,7 +27,7 @@ set('title', 'Timezones');
     <td><?= date("H:i", $row->start) ?></td>
     <td><?= date("H:i", $row->end) ?></td>
     <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
-    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm') ?>
+    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm', null) ?>
         &nbsp;
         <?= deleteLink_to('Delete', 'timezones', $row->id) ?>
 </tr>

@@ -502,7 +502,9 @@ function app_file()
   static $file;
   if(empty($file))
   {
-    $stacktrace = array_pop(debug_backtrace());
+    $st = debug_backtrace();
+    $stacktrace = array_pop($st);
+    //$stacktrace = array_pop(debug_backtrace());
     $file = $stacktrace['file'];
   }
   return file_path($file);

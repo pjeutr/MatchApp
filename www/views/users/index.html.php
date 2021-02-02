@@ -27,7 +27,7 @@ set('title', 'Users');
     <td><?= $row->name ?></td>
     <td><?= $row->group_name ?></td>
     <td><?= $row->last_seen ?></td>
-    <td><?= iconLink_to("Edit", 'users/'.$row->id.'/edit', 'btn-sm') ?>
+    <td><?= iconLink_to("Edit", 'users/'.$row->id.'/edit', 'btn-sm', null) ?>
     	&nbsp;
     	<?= deleteLink_to('Delete', 'users', $row->id) ?>
 </tr>

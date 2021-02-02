@@ -11,7 +11,7 @@
 <form method="POST" action="<?php echo $action ?>">
   <input type="hidden" name="_method" id="_method" value="<?php echo $method ?>" />
   <div class="form-group">
-    <label>Group:</label>
+    <label>Name:</label>
     <input type="text" class="form-control" name="user[name]" id="name" value="<?php echo h($user->name) ?>" placeholder="Enter a name"/>
   </div>
   <div class="form-group">
@@ -20,7 +20,7 @@
     <small id="emailHelp" class="form-text text-muted">The code to type on the codetableau or code of a keytag</small>
   </div>
   <div class="form-group">
-    <label>User Name:</label>
+    <label>Group:</label>
       <select name="user[group_id]" class="form-control" id="user_group_id">
         <option id="0"></option>
 <?php

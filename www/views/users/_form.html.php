@@ -4,9 +4,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header ">
-                      <h4>Edit user</h4>
-                    </div>
                     <div class="card-body table-responsive">
 <form method="POST" action="<?php echo $action ?>">
   <input type="hidden" name="_method" id="_method" value="<?php echo $method ?>" />

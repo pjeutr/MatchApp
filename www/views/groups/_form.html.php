@@ -3,10 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
-                    <div class="card-header ">
-                      <h4>Edit group</h4>
-                    </div>
-                    <div class="card-body table-responsive">
+                    <div class="card-body">
 
 
 <form method="POST" action="<?php echo $action ?>">

@@ -44,40 +44,28 @@ layout('layout/default.html.php');
 
 // main controller
 dispatch('/', 'main_page');
-//dispatch('/:id', 'main_page');
+dispatch('timezones', 'timezone_index');
+dispatch('reports', 'report_index');
+dispatch('events', 'event_index');
+
 dispatch('dash', 'dashboard_page');
 function dashboard_page() {
     return html('dashboard.html.php');
 }
-dispatch('doors2', 'doors_page');
-function doors_page() {
-    return html('doors.html.php');
-}
-dispatch('events2', 'events_page');
-function events_page() {
-    return html('events.html.php');
-}
-dispatch('groups', 'groups_page');
+dispatch('groups2', 'groups_page');
 function groups_page() {
     return html('groups.html.php');
 }
-dispatch('reports', 'reports_page');
-function reports_page() {
-    return html('reports.html.php');
-}
-dispatch('timezones', 'timezones_page');
-function timezones_page() {
-    return html('timezones.html.php');
-}
-dispatch('users2', 'users_page');
-function users_page() {
-    return html('users.html.php');
-}
 //dispatch('info', phpinfo());
 
-// gpio controller
+dispatch('gpio', 'gpio_page');
+function gpio_page() {
+    return html('gpio.html.php');
+}
+// main controller
 dispatch_get   ('gpio/:id/:state',  'gpio_state');
 dispatch_get   ('gpio_key',  'gpio_key');
+dispatch_get   ('door/:id/',      'door_open');
 
 // doors controller
 dispatch_get   ('doors',          'doors_index');
@@ -97,4 +85,12 @@ dispatch_get   ('users/:id',      'users_show');
 dispatch_put   ('users/:id',      'users_update');
 dispatch_delete('users/:id',      'users_destroy');
 
+// groups controller
+dispatch_get   ('groups',          'groups_index');
+dispatch_post  ('groups',          'groups_create');
+dispatch_get   ('groups/new',      'groups_new');
+dispatch_get   ('groups/:id/edit', 'groups_edit');
+dispatch_get   ('groups/:id',      'groups_show');
+dispatch_put   ('groups/:id',      'groups_update');
+dispatch_delete('groups/:id',      'groups_destroy');
 run();

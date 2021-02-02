@@ -34,7 +34,7 @@ if(! isset($id)) {
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/css/demo.css" rel="stylesheet" />
+    <link href="../assets/css/demo.css?1" rel="stylesheet" />
 </head>
 <body>
     <div class="wrapper">
@@ -94,8 +94,14 @@ if(! isset($id)) {
                             <p>Upgrade to PRO</p>
                         </a>
                     </li> -->
-
-                    <li <?php echo ($id == 0) ? 'class="nav-item active"' : '' ?>>
+                    <hr>
+                    <li <?php echo ($id == 10) ? 'class="nav-item active"' : '' ?>>
+                        <a class="nav-link active" href="./?/gpio">
+                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <p>GPIO</p>
+                        </a>
+                    </li>
+                    <li <?php echo ($id == 11) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link active" href="/admin/phpliteadmin.php">
                             <i class="nc-icon nc-chart-pie-35"></i>
                             <p>DB</p>
@@ -151,22 +157,22 @@ if(! isset($id)) {
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
+                                <a href="https://www.maaslandgroep.nl/" target="_blank">
                                     Company
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.maaslandgroep.nl/contact" target="_blank">
+                                    Contact
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://maaslandserver.com/" target="_blank">
                                     Faq
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.maaslandgroep.nl/nieuws" target="_blank">
                                     Blog
                                 </a>
                             </li>
@@ -176,7 +182,7 @@ if(! isset($id)) {
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            <a href="http://www.sloots.nu/">Sloots.nu</a>, made with coffee
+                            <a href="https://maaslandgroup.com/">Maasland Group</a>, Your Access To Safety. All Rights Reserved.
                         </p>
                     </nav>
                 </div>
@@ -203,25 +209,26 @@ if(! isset($id)) {
 
 <script type="text/javascript">
     $(document).ready(function() {
-            window.setInterval(function() {
+            //window.setInterval(function() {
                 //key_autoload();
-            }, 300);
+            //}, 300);
 
     }); //END $(document).ready()
 
     var frm = $('#led_form');
-    document.led_form.addEventListener('change', function(obj) {
-        console.log(obj.target.name + "=" + obj.target.value);
+    //TODO error op ander pagina's 
+    // document.led_form.addEventListener('change', function(obj) {
+    // //    console.log(obj.target.name + "=" + obj.target.value);
           
-        $.ajax({
-            type: 'GET',
-            url: '/?/gpio/' +obj.target.name+ '/' +obj.target.value,
-            //data: frm.serialize(),
-            success: function(data){
-                //$('#ledimg_content').html(data);
-            }
-        });
-    });
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '/?/gpio/' +obj.target.name+ '/' +obj.target.value,
+    //         //data: frm.serialize(),
+    //         success: function(data){
+    //             //$('#ledimg_content').html(data);
+    //         }
+    //     });
+    // });
 
     var key_frm = $('#key_form');
     function key_autoload(){

@@ -9,35 +9,29 @@ set('title', 'Timezones');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <button id="twitter" class="btn btn-round"><i class="fa fa-user"></i>Add Timezone</button>
+                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-round', 'nc-icon nc-watch-time') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>From</th>
-                                <th>Till</th>
+                                <th>Start</th>
+                                <th>End</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>24 hours</td>
-                                    <td>00:00</td>
-                                    <td>00:00</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Working hours</td>
-                                    <td>06:00</td>
-                                    <td>19:00</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Evening</td>
-                                    <td>17:00</td>
-                                    <td>23:00</td>
-                                </tr>
+<?php foreach ($timezones as $row) { ?>
+<tr>
+    <td><?= $row->id ?></td>
+    <td><?= $row->name ?></td>
+    <td><?= date("H:i", $row->start) ?></td>
+    <td><?= date("H:i", $row->end) ?></td>
+    <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
+    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm') ?>
+        &nbsp;
+        <?= deleteLink_to('Delete', 'timezones', $row->id) ?>
+</tr>
+<?php } ?>
                             </tbody>
                         </table>
                     </div>

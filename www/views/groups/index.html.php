@@ -1,6 +1,6 @@
 <?php 
-set('id', 1);
-set('title', 'Users');
+set('id', 2);
+set('title', 'Groups');
 ?>
 
 <div class="content">
@@ -9,25 +9,40 @@ set('title', 'Users');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                    	<?= iconLink_to('New door', 'doors/new', 'btn-round', 'nc-icon nc-bank') ?>
+                    	<?= iconLink_to('New group', 'groups/new', 'btn-round', 'nc-icon nc-circle-09') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
-                        <table class="table table-hover table-striped">
+                        <table class="table table-hover">
                             <thead>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Created</th>
-                                <th>Action</th>
                             </thead>
                             <tbody>
-<?php foreach ($doors as $row) { ?>
+<?php foreach ($groups as $row) { ?>
 <tr>
 	<td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
-    <td><?= $row->created_at ?></td>
-    <td><?= iconLink_to("Edit", 'doors/'.$row->id.'/edit', 'btn-sm') ?>
+    <td>
+<table class="table table-hover">
+<thead>
+    <th>Door</th>
+    <th>Timezone</th>
+</thead>
+<tbody>
+<?php foreach ($doors as $row) { ?>
+<tr>
+    <td><?= $row->name ?></td>
+    <td>24 hours</td>
+    <td><?= iconLink_to("Edit", 'access/'.$row->id.'/edit', 'btn-sm') ?>
+</tr>
+<?php } ?>
+    </tbody>
+</table> 
+    </td>
+    <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-sm') ?>
     	&nbsp;
-    	<?= deleteLink_to('Delete', 'doors', $row->id) ?>
+    	<?= deleteLink_to('Delete', 'groups', $row->id) ?>
 </tr>
 <?php } ?>
                             </tbody>

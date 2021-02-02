@@ -15,25 +15,19 @@ set('title', 'Reports');
                         <table class="table table-hover table">
                             <thead>
                                 <th>ID</th>
-                                <th>Event</th>
+                                <th>Door</th>
+                                <th>User</th>
                                 <th>Time</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
+<?php foreach (array_reverse($reports) as $row) { ?>
+<tr>
+    <td><?= $row->id ?></td>
+    <td><?= $row->door ?></td>
+    <td><?= $row->user ?></td>
+    <td><?= $row->created_at ?></td>
+</tr>
+<?php } ?>
                             </tbody>
                         </table>
                     </div>

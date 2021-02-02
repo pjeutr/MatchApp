@@ -17,12 +17,14 @@ function users_show() {
 function users_edit() {
     $user = get_user_or_404();
     set('user', $user);
+    set('groups', find_groups());
     return html('users/edit.html.php');
 }
 
 # PUT /users/:id
 function users_update() {
     $user_data = user_data_from_form();
+    error_log(json_encode($user_data));
     $user = get_user_or_404();
     $user = make_user_obj($user_data, $user);
 
@@ -36,6 +38,7 @@ function users_new() {
     $user_data = make_empty_obj(user_columns());
     error_log(json_encode($user_data));
     set('user', make_user_obj($user_data));
+    set('groups', find_groups());
     return html('users/new.html.php');
 }
 

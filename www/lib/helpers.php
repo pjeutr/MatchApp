@@ -1,5 +1,96 @@
 <?php
 
+class GVAR
+{
+    #define SENSER_PIN     NUC980_PB4   //senser input
+    #define TAMPER_PIN     NUC980_PB13  //tamp input
+    #define ARM_PIN        NUC980_PC0   //alarm input
+    #define RELAY3_PIN     NUC980_PC1   //alarm relay output
+    #define RELAY2_PIN     NUC980_PC2   //relay2 output
+    #define SOUNDER_PIN    NUC980_PC3   //sounder output
+    #define RELAY1_PIN     NUC980_PC4   //relay1 output
+    public static $GPIO_DOOR1 = 68; //NUC980_PC4
+    public static $GPIO_DOOR2 = 66; //NUC980_PC2
+    public static $DOOR_TIMER = 2; //Door lock stays open for 2s
+
+    //$RD1_RLED_PIN = 3; //NUC980_PA3   //reader1 rled output
+    public static $RD1_GLED_PIN = 2; //NUC980_PA2   //reader1 gled output
+    //$RD2_RLED_PIN = 11; //NUC980_PA11  //reader2 rled output
+    public static $RD2_GLED_PIN = 10;  //NUC980_PA10  //reader2 gled output
+}
+
+//TODO 
+//Timezones prefix, add later.
+//Groups
+//Users 
+//ajax methods, background refres
+// Eventlist met badge
+// OpenDoor1
+
+
+function mylog($message) {
+    if(php_sapi_name() === 'cli') {
+        echo($message);
+    }
+    return error_log($message);
+}
+
+function openDoor1($usedReader) {
+    return openDoor(GVAR::$GPIO_DOOR1, $usedReader);
+}
+
+function openDoor2($usedReader) {
+    return openDoor(GVAR::$GPIO_DOOR2, $usedReader);
+}
+
+function openDoor($gid, $reader) {
+    //determine which reader is used, so we can select the proper led
+    $gled = -1;
+    if($reader == 1) {$gled = GVAR::$RD1_GLED_PIN;}
+    if($reader == 2) {$gled = GVAR::$RD2_GLED_PIN;}
+
+    mylog("Open Door GPIO=".$gid." reader=".$reader." LED=".$gled."\n");
+    //open lock
+    setGPIO($gid, 1);
+    //turn on led
+    if($gled) setGPIO($gled, 1);
+    //wait some time. close lock
+    sleep(GVAR::$DOOR_TIMER);
+    //turn off led
+    if($gled) setGPIO($gled, 0);
+    return setGPIO($gid, 0);
+}
+
+function setGPIO($gid, $state) {
+    mylog("setGPIO ".$gid."=".$state);
+    if(! file_exists("/sys/class/gpio/gpio".$gid)) {
+        mylog("init gid=".$gid);
+        shell_exec("echo ".$gid." > /sys/class/gpio/export");
+        shell_exec("echo out >/sys/class/gpio/gpio".$gid."/direction");
+    }
+//led 40 & 45
+//1 = off, 0 = on
+//$gpio_on = shell_exec('gpio write 1 1');
+// echo 40 > /sys/class/gpio/export
+// echo out >/sys/class/gpio/gpio40/direction
+// echo 1 >/sys/class/gpio/gpio40/value
+//switch 90 & 92 not working propably needs a 4.7K pull-down resistor?
+// cat /sys/class/gpio/gpio90/active_low    
+// echo both > /sys/class/gpio/gpio90/edge
+// rising / falling / both / none
+
+    shell_exec("echo ".$state." >/sys/class/gpio/gpio".$gid."/value");
+    
+    return 1;    
+}
+
+function buttonLink_to($params = null) {
+    $params = func_get_args();
+    $name = array_shift($params);
+    $url = call_user_func_array('url_for', $params);
+    return "<a class=\"btn btn-secondary\" href=\"$url\">$name</a>";
+}
+
 function link_to($params = null) {
     $params = func_get_args();
     $name = array_shift($params);

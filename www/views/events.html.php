@@ -13,26 +13,20 @@ set('title', 'Events');
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table">
                             <thead>
-                                <th>ID</th>
-                                <th>Event</th>
-                                <th>Time</th>                                          
+                                <th>Nr</th>
+                                <th>Reader</th>
+                                <th>Keycode</th>   
+                                <th>Timestamp</th>                                        
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Main door open</td>
-                                    <td>2019-09-17 12:59:30</td>                                     
-                                </tr>
+<?php foreach (array_reverse($events) as $row) { ?>
+<tr>
+    <td><?= $row->nr ?></td>
+    <td><?= $row->reader ?></td>
+    <td><?= $row->keycode ?></td>
+    <td><?= $row->created_at ?></td>
+</tr>
+<?php } ?>
                             </tbody>
                         </table>
                     </div>

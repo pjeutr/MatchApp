@@ -1,7 +1,17 @@
 <?php
 
 require_once('lib/limonade.php');
-require_once('lib/config.php');
+
+function configure() {
+    $env = $_SERVER['HTTP_HOST'] == 'library.dev' ? ENV_DEVELOPMENT : ENV_PRODUCTION;
+    $dsn = $env == ENV_PRODUCTION ? 'sqlite:db/dev.db' : 'sqlite:db/dev.db';
+    $db = new PDO($dsn);
+    $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+    option('env', $env);
+    option('dsn', $dsn);
+    option('db_conn', $db);
+    option('debug', true);
+}
 
 function after($output) {
     $time = number_format( (float)substr(microtime(), 0, 10) - LIM_START_MICROTIME, 6);

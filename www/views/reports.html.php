@@ -15,16 +15,16 @@ set('title', 'Reports');
                         <table class="table table-hover table">
                             <thead>
                                 <th>ID</th>
-                                <th>Door</th>
                                 <th>User</th>
+                                <th>Door</th>  
                                 <th>Time</th>
                             </thead>
                             <tbody>
 <?php foreach (array_reverse($reports) as $row) { ?>
 <tr>
     <td><?= $row->id ?></td>
-    <td><?= $row->door ?></td>
     <td><?= $row->user ?></td>
+    <td><?= $row->door ?></td>
     <td><?= $row->created_at ?></td>
 </tr>
 <?php } ?>

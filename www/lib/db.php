@@ -71,6 +71,12 @@ function create_object($object, $table, $obj_columns = array()) {
 
 function name_eq_colon_name($x) { return $x . ' = :' . $x; };
 
+function update_object_with_sql($sql) {
+    $db = option('db_conn');
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+}
+
 function update_object($object, $table, $obj_columns = array()) {
     $db = option('db_conn');
 

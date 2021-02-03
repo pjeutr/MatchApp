@@ -4,7 +4,7 @@ function find_users() {
     $sql =
         "SELECT " .
         "b.id as id, b.name as name, b.last_seen as last_seen, b.group_id as group_id, " .
-        "a.name as group_name " .
+        "a.name as group_name, b.remarks as remarks, b.keycode as keycode " .
         "FROM users b " .
         "LEFT JOIN groups a ON a.id=b.group_id";
     return find_objects_by_sql($sql);
@@ -19,6 +19,22 @@ function find_user_by_id($id) {
         "LEFT JOIN groups a ON a.id=b.group_id " .
         "WHERE b.id=:id";   
     return find_object_by_sql($sql, array(':id' => $id));
+}
+
+function find_user_by_keycode($keycode) {
+    $sql =
+        "SELECT " .
+        "b.id as id, b.name as name, b.last_seen as last_seen, b.group_id as group_id, " .
+        "a.name as group_name, b.remarks as remarks, b.keycode as keycode " .
+        "FROM users b " .
+        "LEFT JOIN groups a ON a.id=b.group_id " .
+        "WHERE b.keycode=:keycode";   
+    return find_object_by_sql($sql, array(':keycode' => $keycode));
+}
+
+function update_user_last_seen($user_obj) {
+    $sql = "UPDATE users SET last_seen = DateTime('now') WHERE id = ".$user_obj->id;
+    return update_object_with_sql($sql, 'users');
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

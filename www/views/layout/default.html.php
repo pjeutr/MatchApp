@@ -107,6 +107,12 @@ if(! isset($id)) {
                             <p>DB</p>
                         </a>
                     </li>
+                    <li <?php echo ($id == 12) ? 'class="nav-item active"' : '' ?>>
+                        <a class="nav-link active" href="./?/main">
+                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <p>test</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

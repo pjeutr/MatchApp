@@ -1,5 +1,4 @@
 <?php
-
 class GVAR
 {
     #define SENSER_PIN     NUC980_PB4   //senser input
@@ -19,14 +18,23 @@ class GVAR
     public static $RD2_GLED_PIN = 10;  //NUC980_PA10  //reader2 gled output
 }
 
-//TODO 
-//Timezones prefix, add later.
-//Groups
-//Users 
-//ajax methods, background refres
-// Eventlist met badge
-// OpenDoor1
+function hasUserAccess($user, $reader) {
+    //update last seen field of user
+    update_user_last_seen($user);
+    $door = find_door_by_id($reader);
 
+    //check if the group/user has access
+    //TODO check door and timezone, from access record
+
+    //save report
+    $report = make_report_obj([
+        "user"  => $user->name,
+        "door" => "Opened ". $door->name
+    ]);
+    $id = create_object($report, 'reports', null);
+
+    return true;    
+}
 
 function mylog($message) {
     if(php_sapi_name() === 'cli') {
@@ -62,7 +70,7 @@ function openDoor($gid, $reader) {
 }
 
 function setGPIO($gid, $state) {
-    mylog("setGPIO ".$gid."=".$state);
+    mylog("setGPIO ".$gid."=".$state."\t");
     if(! file_exists("/sys/class/gpio/gpio".$gid)) {
         mylog("init gid=".$gid);
         shell_exec("echo ".$gid." > /sys/class/gpio/export");

@@ -16,6 +16,7 @@ set('title', 'Users');
                             <thead>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Keycode</th>
                                 <th>Group</th>
                                 <th>Last seen</th>
                                 <th>Action</th>
@@ -25,6 +26,7 @@ set('title', 'Users');
 <tr>
 	<td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
+    <td><?= $row->keycode ?></td>
     <td><?= $row->group_name ?></td>
     <td><?= $row->last_seen ?></td>
     <td><?= iconLink_to("Edit", 'users/'.$row->id.'/edit', 'btn-sm', null) ?>

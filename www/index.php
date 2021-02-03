@@ -1,17 +1,7 @@
 <?php
 
 require_once('lib/limonade.php');
-
-function configure() {
-    $env = $_SERVER['HTTP_HOST'] == 'library.dev' ? ENV_DEVELOPMENT : ENV_PRODUCTION;
-    $dsn = $env == ENV_PRODUCTION ? 'sqlite:db/dev.db' : 'sqlite:db/dev.db';
-    $db = new PDO($dsn);
-    $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
-    option('env', $env);
-    option('dsn', $dsn);
-    option('db_conn', $db);
-    option('debug', true);
-}
+require_once('lib/config.php');
 
 function after($output) {
     $time = number_format( (float)substr(microtime(), 0, 10) - LIM_START_MICROTIME, 6);
@@ -43,7 +33,8 @@ function server_error($errno, $errstr, $errfile=null, $errline=null)
 layout('layout/default.html.php');
 
 // main controller
-dispatch('/', 'main_page');
+dispatch('/', 'dashboard_page');
+dispatch('main', 'main_page');
 dispatch('timezones', 'timezone_index');
 dispatch('reports', 'report_index');
 dispatch('events', 'event_index');

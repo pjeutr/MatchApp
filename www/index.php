@@ -66,6 +66,8 @@ function gpio_page() {
 dispatch_get   ('gpio/:id/:state',  'gpio_state');
 dispatch_get   ('gpio_key',  'gpio_key');
 dispatch_get   ('door/:id/',      'door_open');
+//ajax
+dispatch_get   ('last_reports',   'last_reports');
 
 // doors controller
 dispatch_get   ('doors',          'doors_index');

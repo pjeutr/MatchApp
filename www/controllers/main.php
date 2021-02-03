@@ -17,6 +17,11 @@ function timezone_index() {
     return html('timezones.html.php');
 }
 
+//ajax
+function last_reports() {
+    return (json(find_reports()));
+}
+
 //TODO ajaxify
 //user render ipv html 
 //render('index.html.php', null, array('name' => 'John Doe' ));

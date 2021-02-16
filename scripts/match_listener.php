@@ -7,6 +7,7 @@ require_once '/maasland_app/www/lib/model.report.php';
 require_once '/maasland_app/www/lib/model.user.php';
 require_once '/maasland_app/www/lib/model.door.php';
 
+//initialize database connection
 $dsn = "sqlite:/maasland_app/www/db/dev.db";
 $db = new PDO($dsn);
 $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
@@ -40,14 +41,12 @@ while(true) {
 
 		//get User for the key
 		$user = find_user_by_keycode($keycode);
-
 		if($user) {
-			//check if the user access
-			//and also save a report and update last seen for user
-			if(hasUserAccess($user,$reader)) {
-				openDoor1($reader);
-			}		
+			handleUserAccess($user,$reader);
 		}
+
+		//wait a quarter of a second, to avoid too much load on CPU
+		usleep(250000);
     }
 }
 

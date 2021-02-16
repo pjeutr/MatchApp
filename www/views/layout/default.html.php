@@ -132,6 +132,7 @@ if(! isset($id)) {
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav ml-auto">
 
+                            <!--
                             <li class="dropdown nav-item">
                                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     <i class="nc-icon nc-planet"></i>
@@ -145,6 +146,7 @@ if(! isset($id)) {
                                     <a class="dropdown-item" href="#">02:34 Back door opened by Arya</a>
                                 </ul>
                             </li>  
+                        -->
                             <li class="nav-item">
                                 <a class="nav-link" href="#pablo">
                                     <span class="no-icon">Log out</span>

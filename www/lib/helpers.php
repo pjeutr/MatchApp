@@ -18,44 +18,57 @@ class GVAR
     public static $RD2_GLED_PIN = 10;  //NUC980_PA10  //reader2 gled output
 }
 
-function hasUserAccess($user, $reader) {
+function handleUserAccess($user, $reader) {
     //update last seen field of user
     update_user_last_seen($user);
     $door = find_door_by_id($reader);
 
     //check if the group/user has access
     //TODO check door and timezone, from access record
+    $msg = "Opened ". $door->name;
 
-    //save report
-    $report = make_report_obj([
-        "user"  => $user->name,
-        "door" => "Opened ". $door->name
-    ]);
-    $id = create_object($report, 'reports', null);
-
+    //save report and open the door 
+    saveReport($user->name, $msg);
+    openDoor($reader);
+    
     return true;    
+}
+
+function saveReport($name, $msg) {
+    //create report entry in log
+    mylog($name." ".$msg."\n");
+
+    //create report record in db
+    $report = make_report_obj([
+        "user"  => $name,
+        "door" => $msg
+    ]);
+    return create_object($report, 'reports', null);
 }
 
 function mylog($message) {
     if(php_sapi_name() === 'cli') {
+        //TODO add timestamp
         echo($message);
     }
     return error_log($message);
 }
 
-function openDoor1($usedReader) {
-    return openDoor(GVAR::$GPIO_DOOR1, $usedReader);
-}
-
-function openDoor2($usedReader) {
-    return openDoor(GVAR::$GPIO_DOOR2, $usedReader);
-}
-
-function openDoor($gid, $reader) {
+function openDoor($reader) {
     //determine which reader is used, so we can select the proper led
     $gled = -1;
-    if($reader == 1) {$gled = GVAR::$RD1_GLED_PIN;}
-    if($reader == 2) {$gled = GVAR::$RD2_GLED_PIN;}
+    $gid = -1;
+
+    //determine the right door, assume reader1=door1, reader2=door2
+    //TODO config reader2 to also open door 1?
+    if($reader == 1) {
+        $gled = GVAR::$RD1_GLED_PIN;
+        $gid = GVAR::$GPIO_DOOR1;
+    }
+    if($reader == 2) {
+        $gled = GVAR::$RD2_GLED_PIN;
+        $gid = GVAR::$GPIO_DOOR2;
+    }
 
     mylog("Open Door GPIO=".$gid." reader=".$reader." LED=".$gled."\n");
     //open lock

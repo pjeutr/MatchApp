@@ -39,10 +39,8 @@ function gpio_state() {
 
 function door_open() {
 	$id = filter_var(params('id'), FILTER_VALIDATE_INT);
-	//open door, use same id for reader. Assuming reader1 will be next door1
-	//TODO could use reflection
-	if($id == 1) openDoor1($id);
-	if($id == 2) openDoor2($id);
+    saveReport("WebAdmin", "Opened door ".$id);
+    openDoor($id);
     return html('dashboard.html.php');
 }
 

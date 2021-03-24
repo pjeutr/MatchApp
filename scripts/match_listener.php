@@ -45,8 +45,8 @@ while(true) {
 			handleUserAccess($user,$reader);
 		}
 
-		//wait a quarter of a second, to avoid too much load on CPU
-		usleep(250000);
+		//wait half a second, to avoid too much load on CPU
+		usleep(500000);
     }
 }
 

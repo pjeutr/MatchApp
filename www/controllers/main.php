@@ -16,6 +16,10 @@ function timezone_index() {
     set('timezones', find_timezones());
     return html('timezones.html.php');
 }
+function settings_index() {
+    set('settings', find_settings());
+    return html('settings.html.php');
+}
 
 //ajax
 function last_reports() {

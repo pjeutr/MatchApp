@@ -34,7 +34,7 @@ if(! isset($id)) {
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/css/demo.css?1" rel="stylesheet" />
+    <link href="../assets/css/demo.css?3" rel="stylesheet" />
 </head>
 <body>
     <div class="wrapper">
@@ -88,12 +88,12 @@ if(! isset($id)) {
                             <p>Events</p>
                         </a>
                     </li>
-<!--                     <li class="nav-item active active-pro">
-                        <a class="nav-link active" href="upgrade.html">
+                    <li <?php echo ($id == 7) ? 'class="nav-item active"' : '' ?>>
+                        <a class="nav-link" href="./?/settings">
                             <i class="nc-icon nc-alien-33"></i>
-                            <p>Upgrade to PRO</p>
+                            <p>Settings</p>
                         </a>
-                    </li> -->
+                    </li>
                     <hr>
                     <li <?php echo ($id == 10) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link active" href="./?/gpio">
@@ -114,6 +114,9 @@ if(! isset($id)) {
                         </a>
                     </li>
                 </ul>
+                <div class="sidebar-footer">
+                    MatchApp v0.1
+                </div>
             </div>
         </div>
         <div class="main-panel">

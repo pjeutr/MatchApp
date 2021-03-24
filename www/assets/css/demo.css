@@ -510,6 +510,10 @@ td {
     width: 100%;
 }
 
+.sidebar-footer {
+    padding: 10px 15px 9px 25px;
+}
+
 .navbar-small .logo-container .brand {
     color: #333333;
 }

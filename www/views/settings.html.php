@@ -1,6 +1,6 @@
 <?php 
-set('id', 5);
-set('title', 'Reports');
+set('id', 7);
+set('title', 'Settings');
 ?>
 
 <div class="content">

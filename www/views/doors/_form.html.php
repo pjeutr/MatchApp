@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <label>Door name:</label>
-    <input type="text" class="form-control" name="door[name]" id="name" value="<?php echo h($door->name) ?>" placeholder="Enter a name"/>
+    <input type="text" class="form-control" name="door[name]" id="door_name" value="<?php echo h($door->name) ?>" placeholder="Enter a name"/>
   </div>
 
     <?php echo buttonLink_to('Cancel', 'doors'), "\n" ?>

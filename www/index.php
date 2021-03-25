@@ -45,7 +45,6 @@ layout('layout/default.html.php');
 // main controller
 dispatch('/', 'dashboard_page');
 dispatch('main', 'main_page');
-dispatch('timezones', 'timezone_index');
 dispatch('reports', 'report_index');
 dispatch('events', 'event_index');
 
@@ -69,6 +68,7 @@ dispatch_get   ('gpio_key',  'gpio_key');
 dispatch_get   ('door/:id/',      'door_open');
 
 dispatch_get   ('settings',   'settings_index');
+dispatch_put   ('settings/:id', 'settings_update');
 
 //ajax
 dispatch_get   ('last_reports',   'last_reports');
@@ -99,4 +99,13 @@ dispatch_get   ('groups/:id/edit', 'groups_edit');
 dispatch_get   ('groups/:id',      'groups_show');
 dispatch_put   ('groups/:id',      'groups_update');
 dispatch_delete('groups/:id',      'groups_destroy');
+
+// timezones controller
+dispatch_get   ('timezones',          'timezones_index');
+dispatch_post  ('timezones',          'timezones_create');
+dispatch_get   ('timezones/new',      'timezones_new');
+dispatch_get   ('timezones/:id/edit', 'timezones_edit');
+dispatch_get   ('timezones/:id',      'timezones_show');
+dispatch_put   ('timezones/:id',      'timezones_update');
+dispatch_delete('timezones/:id',      'timezones_destroy');
 run();

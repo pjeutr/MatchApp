@@ -56,7 +56,7 @@ function make_door_obj($params, $obj = null) {
 }
 
 function door_columns() {
-    return array('name', 'created_at', 'updated_at');
+    return array('name');
 }
 
 

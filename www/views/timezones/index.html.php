@@ -24,8 +24,8 @@ set('title', 'Timezones');
 <tr>
     <td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
-    <td><?= date("H:i", $row->start) ?></td>
-    <td><?= date("H:i", $row->end) ?></td>
+    <td><?= $row->start //date("H:i", $row->start) ?></td>
+    <td><?= $row->end //date("H:i", $row->end) ?></td>
     <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
     <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm', null) ?>
         &nbsp;

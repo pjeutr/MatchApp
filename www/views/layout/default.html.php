@@ -32,9 +32,25 @@ if(! isset($id)) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
+    <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.1 " rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/css/demo.css?3" rel="stylesheet" />
+    <link href="../assets/css/bootstrap-datetimepicker.css " rel="stylesheet" />
+
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+    <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+    <script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+    <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/js/demo.js"></script>    
 </head>
 <body>
     <div class="wrapper">
@@ -90,26 +106,26 @@ if(! isset($id)) {
                     </li>
                     <li <?php echo ($id == 7) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link" href="./?/settings">
-                            <i class="nc-icon nc-alien-33"></i>
+                            <i class="nc-icon nc-settings-90"></i>
                             <p>Settings</p>
                         </a>
                     </li>
                     <hr>
                     <li <?php echo ($id == 10) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link active" href="./?/gpio">
-                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <i class="nc-icon nc-settings-gear-64"></i>
                             <p>GPIO</p>
                         </a>
                     </li>
                     <li <?php echo ($id == 11) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link active" href="/admin/phpliteadmin.php">
-                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <i class="nc-icon nc-settings-tool-66"></i>
                             <p>DB</p>
                         </a>
                     </li>
                     <li <?php echo ($id == 12) ? 'class="nav-item active"' : '' ?>>
                         <a class="nav-link active" href="./?/main">
-                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <i class="nc-icon nc-alien-33"></i>
                             <p>test</p>
                         </a>
                     </li>
@@ -201,18 +217,7 @@ if(! isset($id)) {
         </div>
     </div>
 </body>
-<!--   Core JS Files   -->
-<script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {

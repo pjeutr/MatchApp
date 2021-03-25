@@ -33,7 +33,7 @@ function doors_update() {
 
 # GET /doors/new
 function doors_new() {
-    $door_data = door_data_from_form();
+    $door_data = make_empty_obj(door_columns());
     set('door', make_door_obj($door_data));
     //set('authors', find_authors());
     return html('doors/new.html.php');

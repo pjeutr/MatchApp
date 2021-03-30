@@ -124,7 +124,10 @@ function iconLink_to($name, $link, $style, $icon) {
 	$url = url_for($link);
     $fa = isset($icon) ? "<i class=\"fa $icon\"></i>" : "";
     
-    return "<a class=\"btn $style\" href=\"$url\">$fa $name</a>";    
+    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-success $style\" href=\"$url\"><i class=\"fa fa-edit\"></i>$name</a>";    
+
+    //return '<a href="#" rel="tooltip" title="Edit Profile" class="btn btn-success btn-link btn-xs"><i class="fa fa-edit"></i></a>';
+    //return "<a class=\"btn $style\" href=\"$url\">$fa $name</a>";    
 }
 
 function deleteLink_to($params = null) {
@@ -132,9 +135,10 @@ function deleteLink_to($params = null) {
     $name = array_shift($params);
     $url = call_user_func_array('url_for', $params);
     
-    return "<a class=\"btn btn-sm btn-danger\" href=\"$url\"
+    //return '<a href="#" rel="tooltip" title="Remove" class="btn btn-danger btn-link"><i class="fa fa-times"></i></a>';
+    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-danger btn-link\" href=\"$url\"
     onclick=\"if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'DELETE'); f.appendChild(m); f.submit(); };return false;\"
-    >$name</a>";    
+    ><i class=\"fa fa-times\"></i>$name</a>";    
 }
 
 function option_tag($id, $title, $act_id) {

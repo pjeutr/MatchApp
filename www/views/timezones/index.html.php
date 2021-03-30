@@ -9,7 +9,7 @@ set('title', 'Timezones');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-round', 'nc-icon nc-watch-time') ?>
+                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-outline', 'nc-icon nc-watch-time') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table-striped">
@@ -27,7 +27,7 @@ set('title', 'Timezones');
     <td><?= $row->start //date("H:i", $row->start) ?></td>
     <td><?= $row->end //date("H:i", $row->end) ?></td>
     <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
-    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm', null) ?>
+    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-link', null) ?>
         &nbsp;
         <?= deleteLink_to('Delete', 'timezones', $row->id) ?>
 </tr>

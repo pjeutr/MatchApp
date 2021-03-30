@@ -9,7 +9,7 @@ set('title', 'Groups');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                    	<?= iconLink_to('New group', 'groups/new', 'btn-round', 'nc-icon nc-circle-09') ?>
+                    	<?= iconLink_to('New group', 'groups/new', 'btn-outline', 'nc-icon nc-circle-09') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover">
@@ -34,13 +34,13 @@ set('title', 'Groups');
 <tr>
     <td><?= $row2->name ?></td>
     <td>24 hours</td>
-    <td><?= iconLink_to("Edit", 'access/'.$row2->id.'/edit', 'btn-sm', null) ?>
+    <td><?= iconLink_to("Edit", 'access/'.$row2->id.'/edit', 'btn-link', null) ?>
 </tr>
 <?php } ?>
     </tbody>
 </table> 
     </td>
-    <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-sm', null) ?>
+    <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-link', null) ?>
     	&nbsp;
     	<?= deleteLink_to('Delete', 'groups', $row->id) ?>
 </tr>

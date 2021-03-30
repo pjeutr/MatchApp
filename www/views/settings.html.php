@@ -26,6 +26,14 @@ set('title', 'Settings');
         <input type="text" name="<?= $row->id ?>" value="<?= $row->value ?> " >
                    
     </td>
+<?php
+if( $row->type ) { ?>
+<td class="text-right">
+                                                    <input type="checkbox" checked="" data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="" data-off-text="">
+                                                    <span class="toggle"></span>
+<?php } ?>
+                                                    
+                                                </td>
     <td><?= iconLink_to("Change", 'settings/'.$row->id.'/update', 'btn-sm', null) ?>
 </tr>
 <?php } ?>

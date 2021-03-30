@@ -5,7 +5,6 @@
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-body table-responsive">
 
-
 <form method="POST" action="<?php echo $action ?>">
   <input type="hidden" name="_method" id="_method" value="<?php echo $method ?>" />
 
@@ -15,11 +14,11 @@
   </div>
   <div class="form-group">
     <label>Door start:</label>
-    <input type="text" class="form-control datetimepicker" name="timezone[start]" id="door_name" value="<?php echo h($timezone->start) ?>" placeholder="Enter a start"/>
+    <input type="text" class="form-control timepicker" name="timezone[start]" id="datetimepicker" value="<?php echo h($timezone->start) ?>" placeholder="Enter a start"/>
   </div>
   <div class="form-group">
     <label>Door end:</label>
-    <input type="text" class="form-control datetimepicker" name="timezone[end]" id="name" value="<?php echo h($timezone->end) ?>" placeholder="Enter a end"/>
+    <input type="text" class="form-control timepicker" name="timezone[end]" id="datetimepicker" value="<?php echo h($timezone->end) ?>" placeholder="Enter a end"/>
   </div>
 
   <?php echo buttonLink_to('Cancel', 'timezones'), "\n" ?>
@@ -33,27 +32,3 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
-$(function () {
-//https://getdatepicker.com/4/#time-only
-$('.datetimepicker').datetimepicker({
-    format: 'HH:mm',
-    useCurrent: false,
-    icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-chevron-up",
-        down: "fa fa-chevron-down",
-        previous: 'fa fa-chevron-left',
-        next: 'fa fa-chevron-right',
-        today: 'fa fa-screenshot',
-        clear: 'fa fa-trash',
-        close: 'fa fa-remove'
-    }
-});
-
-
-});
-
-</script>

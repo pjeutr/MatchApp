@@ -9,7 +9,7 @@ set('title', 'Users');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                    	<?= iconLink_to('New user', 'users/new', 'btn-round', 'fa-user') ?>
+                    	<?= iconLink_to('New user', 'users/new', 'btn-outline', 'fa-user') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table-striped">
@@ -29,7 +29,7 @@ set('title', 'Users');
     <td><?= $row->keycode ?></td>
     <td><?= $row->group_name ?></td>
     <td><?= $row->last_seen ?></td>
-    <td><?= iconLink_to("Edit", 'users/'.$row->id.'/edit', 'btn-sm', null) ?>
+    <td><?= iconLink_to("Edit", 'users/'.$row->id.'/edit', 'btn-link', null) ?>
     	&nbsp;
     	<?= deleteLink_to('Delete', 'users', $row->id) ?>
 </tr>

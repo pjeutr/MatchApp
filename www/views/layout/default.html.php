@@ -23,18 +23,16 @@ if(! isset($id)) {
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Light Bootstrap Dashboard</title>
+    <title>Maasland Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <!-- CSS Files -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../assets/css/fontawesome.min.css" rel="stylesheet" />
     <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/css/app.css?1" rel="stylesheet" />
+    <link href="../../assets/css/app.css?2" rel="stylesheet" />
 </head>
 
 <body>
@@ -152,8 +150,8 @@ if(! isset($id)) {
                             </li>  
                         -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
-                                    <span class="no-icon">Log out</span>
+                                <a href="./?/logout" class="nav-link">
+                                    <i class="nc-icon nc-key-25"></i> Log out
                                 </a>
                             </li>
                         </ul>
@@ -161,7 +159,6 @@ if(! isset($id)) {
                 </div>
             </nav>
             <!-- End Navbar -->
-            
             <?php echo $content ?>
             
             <footer class="footer">
@@ -209,14 +206,8 @@ if(! isset($id)) {
 <script src="../../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 <script src="../../assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?YOUR_KEY_HERE"></script>
-<!--  Chartist Plugin  -->
-<script src="../../assets/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
-<!--  jVector Map  -->
-<script src="../../assets/js/plugins/jquery-jvectormap.js" type="text/javascript"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
 <script src="../../assets/js/plugins/moment.min.js"></script>
 <!--  DatetimePicker   -->
@@ -239,9 +230,13 @@ if(! isset($id)) {
 <script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
 <!--  Full Calendar   -->
 <script src="../../assets/js/plugins/fullcalendar.min.js"></script>
+<!--  Hide Password  -->
+<script src="../../assets/js/plugins/bootstrap-show-password.min.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../../assets/js/light-bootstrap-dashboard.js?v=2.0.1" type="text/javascript"></script>
-<script src="../../assets/js/app.js"></script>
-
+<script src="../../assets/js/app.js?2"></script>
+<script type="text/javascript">
+    <?= isset($message) ? 'swal('.$message.');' : "" ?>
+</script>
 </html>
 

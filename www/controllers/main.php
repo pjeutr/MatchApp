@@ -20,6 +20,30 @@ function settings_index() {
     set('settings', find_settings());
     return html('settings.html.php');
 }
+function settings_update() {
+    $id = filter_var(params('id'), FILTER_VALIDATE_INT);
+    $type = filter_var($_POST['setting_type'], FILTER_SANITIZE_STRING);
+    $name = filter_var($_POST['setting_name'], FILTER_SANITIZE_STRING);
+
+    if($type == 2) { //checkbox 
+        $value = isset($_POST[$name])?1:0;
+    } else {
+        $value = filter_var($_POST[$name], FILTER_SANITIZE_STRING);
+    }
+    
+    //name and id are both unique, we could use only one of those.
+    $sql = "UPDATE settings SET value = ? WHERE id = ? AND name = ?";
+    mylog("A setting was changed ".$id.":".$name."=".$value);
+    
+    $message = "{type: 'error' ,title: 'Oops', text: 'Something went wrong!'}";
+    if(update_with_sql($sql, [$value,$id,$name])) {
+        $message = "{type: 'success' ,title: 'Great', text: 'The Setting was changed!'}";
+    }
+
+    set('message', $message);
+    set('settings', find_settings());
+    return html('settings.html.php');
+}
 
 //ajax
 function last_reports() {

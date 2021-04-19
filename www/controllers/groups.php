@@ -34,7 +34,7 @@ function groups_update() {
 
 # GET /groups/new
 function groups_new() {
-    $group_data = group_data_from_form();
+    $group_data = make_empty_obj(group_columns());
     set('group', make_group_obj($group_data));
     //set('authors', find_authors());
     return html('groups/new.html.php');

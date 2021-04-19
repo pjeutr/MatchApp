@@ -24,21 +24,25 @@ set('title', 'Groups');
 	<td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
     <td>
-<table class="table table-hover">
-<thead>
-    <th>Door</th>
-    <th>Timezone</th>
-</thead>
-<tbody>
-<?php foreach ($doors as $row2) { ?>
-<tr>
-    <td><?= $row2->name ?></td>
-    <td>24 hours</td>
-    <td><?= iconLink_to("Edit", 'access/'.$row2->id.'/edit', 'btn-link', null) ?>
-</tr>
-<?php } ?>
-    </tbody>
-</table> 
+        <table class="table table-hover">
+        <thead>
+            <th>Door</th>
+            <th>Timezone</th>
+        </thead>
+        <tbody>
+            <?php foreach ($doors as $row2) { ?>
+            <tr>
+                <td><?= $row2->name ?></td>
+                <td>24 hours</td>
+                <td><?= iconLink_to("Edit", 'rules/'.$row2->id.'/edit', 'btn-link', null) ?>
+            </tr>
+            <?php } ?>
+            <tr>
+                <td></td><td></td>
+                <td><?= iconLink_to("New", 'rules/new', 'btn-link', null) ?></td>
+            </tr>
+        </tbody>
+        </table> 
     </td>
     <td><?= iconLink_to("Edit", 'groups/'.$row->id.'/edit', 'btn-link', null) ?>
     	&nbsp;

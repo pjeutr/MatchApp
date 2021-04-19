@@ -10,7 +10,7 @@
 
   <div class="form-group">
     <label>Door name:</label>
-    <input type="text" class="form-control" name="timezone[name]" id="door_name" value="<?php echo h($timezone->name) ?>" placeholder="Enter a name"/>
+    <input type="text" class="form-control" name="timezone[name]" id="timezone_name" value="<?php echo h($timezone->name) ?>" placeholder="Enter a name"/>
   </div>
   <div class="form-group">
     <label>Door start:</label>

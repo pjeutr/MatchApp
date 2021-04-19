@@ -1,6 +1,6 @@
 <?php 
 set('id', 3);
-set('title', 'Doors');
+set('title', 'Rules');
 ?>
 
 <div class="content">
@@ -9,7 +9,7 @@ set('title', 'Doors');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                    	<?= iconLink_to('New door', 'doors/new', 'btn-outline', 'nc-icon nc-bank') ?>
+                    	<?= iconLink_to('New rule', 'rules/new', 'btn-outline', 'nc-icon nc-bank') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table-striped">
@@ -20,14 +20,14 @@ set('title', 'Doors');
                                 <th>Action</th>
                             </thead>
                             <tbody>
-<?php foreach ($doors as $row) { ?>
+<?php foreach ($rules as $row) { ?>
 <tr>
 	<td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
     <td><?= $row->created_at ?></td>
-    <td><?= iconLink_to("Edit", 'doors/'.$row->id.'/edit', 'btn-link', null) ?>
+    <td><?= iconLink_to("Edit", 'rules/'.$row->id.'/edit', 'btn-link', null) ?>
     	&nbsp;
-    	<?= deleteLink_to('Delete', 'doors', $row->id) ?>
+    	<?= deleteLink_to('Delete', 'rules', $row->id) ?>
 </tr>
 <?php } ?>
                             </tbody>

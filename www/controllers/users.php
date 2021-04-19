@@ -34,7 +34,6 @@ function users_update() {
 
 # GET /users/new
 function users_new() {
-    //$user_data = user_data_from_form();
     $user_data = make_empty_obj(user_columns());
     error_log(json_encode($user_data));
     set('user', make_user_obj($user_data));

@@ -10,11 +10,24 @@
   <input type="hidden" name="_method" id="_method" value="<?php echo $method ?>" />
 
   <div class="form-group">
-    <label>Group name:</label>
-    <input type="text" class="form-control" name="group[name]" id="group_name" value="<?php echo h($group->name) ?>" placeholder="Enter a name"/>
+    <label>Rule name:</label>
+    <input type="text" class="form-control" name="rule[name]" id="rule_name" value="<?php echo h($rule->name) ?>" placeholder="Enter a name"/>
   </div>
 
-    <?php echo buttonLink_to('Cancel', 'groups'), "\n" ?>
+  <div class="form-group">
+    <label>Group:</label>
+      <select name="user[group_id]" class="form-control" id="user_group_id">
+        <option id="0"></option>
+<?php
+    foreach ($groups as $row) {
+        echo option_tag($row->id, $row->name, $user->group_id), "\n";
+    }
+?>
+      </select>    
+  </div>
+
+
+    <?php echo buttonLink_to('Cancel', 'rules'), "\n" ?>
     <input type="submit" class="btn btn-secondary" value="Save" />
 </form>
 

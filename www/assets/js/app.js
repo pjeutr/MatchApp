@@ -8,8 +8,36 @@ $().ready(function() {
 
     window_width = $(window).width();
 
-    // Init Datetimepicker
 
+//////
+    $.validator.setDefaults({
+        //debug: true, // blocks submit
+        // errorElement: 'span', //default input error message container
+        // errorClass: 'help-inline', // default input error message class
+        // focusInvalid: false, // do not focus the last invalid input)
+        // highlight: function (element) { // hightlight error inputs
+        //     $(element).closest('.control-group').addClass('error'); // set error class to the control group
+        // },
+        // unhighlight: function (element) { // revert the change dony by hightlight
+        //     $(element).closest('.control-group').removeClass('error'); // set error class to the control group
+        // },
+        // added submitHandler only for demo
+        submitHandler: function(form) { 
+            console.log(this);
+            console.log(form);
+            console.log(event);
+            form.submit();
+            //return false; 
+        }
+    });
+
+    if ($(".settingsForm").length != 0) {
+        console.log("init settingsForm");
+        //$("#settingsForm").validate();
+        settingsFormValidation();
+    };
+
+    // Init Datetimepicker
     if ($("#datetimepicker").length != 0) {
         $('.datetimepicker').datetimepicker({
             icons: {
@@ -223,6 +251,149 @@ $().ready(function() {
 
     });
 
-
 });
 
+app = {
+    // Sweet Alerts
+    timerAlert: function(message, time, id) {
+        $.ajax({
+            //url: endpoint + "?key=" + apiKey + " &q=" + $( this ).text(),
+            //contentType: "application/json",
+            //dataType: 'json',
+            url: "/?/door/" +id,
+            success: function(result){
+                console.log(result);
+            }
+        })
+        swal({
+            title: "Auto close alert!",
+            text: message,
+            timer: time,
+            showConfirmButton: true
+        });
+    },    
+    areYouSure: function(that) {
+        swal({
+            title: "Are you sure?",
+            text: "This item will be deleted!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn btn-info btn-fill",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonClass: "btn btn-danger btn-fill",
+            closeOnConfirm: false,
+        }, function() {
+            var f = document.createElement('form'); 
+            f.style.display = 'none'; 
+            that.parentNode.appendChild(f); 
+            f.method = 'POST'; 
+            f.action = that.href; 
+            var m = document.createElement('input'); 
+            m.setAttribute('type', 'hidden'); 
+            m.setAttribute('name', '_method'); 
+            m.setAttribute('value', 'DELETE'); 
+            f.appendChild(m); 
+            f.submit();
+            swal("Deleted!", "The item has been deleted.", "success");
+        });
+    },
+
+
+    showSwal: function(type) {
+        if (type == 'basic') {
+            swal("Here's a message!");
+
+        } else if (type == 'title-and-text') {
+            swal("Here's a message!", "It's pretty, isn't it?")
+
+        } else if (type == 'success-message') {
+            swal("Good job!", "You clicked the button!", "success")
+
+        } else if (type == 'warning-message-and-confirmation') {
+            swal({
+                title: "Are you sure?",
+                text: "This item will be deleted!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonClass: "btn btn-danger btn-fill",
+                closeOnConfirm: false,
+            }, function() {
+                var f = document.createElement('form'); 
+                f.style.display = 'none'; 
+                this.parentNode.appendChild(f); 
+                f.method = 'POST'; 
+                f.action = this.href; 
+                var m = document.createElement('input'); 
+                m.setAttribute('type', 'hidden'); 
+                m.setAttribute('name', '_method'); 
+                m.setAttribute('value', 'DELETE'); 
+                f.appendChild(m); 
+                f.submit();
+                swal("Deleted!", "The item has been deleted.", "success");
+            });
+
+        } else if (type == 'warning-message-and-cancel') {
+            swal({
+                title: "Are you sure?",
+                text: "This item will be deletedsafd!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function(isConfirm) {
+                if (isConfirm) {
+                    var f = document.createElement('form'); 
+                    f.style.display = 'none'; 
+                    this.parentNode.appendChild(f); 
+                    f.method = 'POST'; 
+                    f.action = this.href; 
+                    var m = document.createElement('input'); 
+                    m.setAttribute('type', 'hidden'); 
+                    m.setAttribute('name', '_method'); 
+                    m.setAttribute('value', 'DELETE'); 
+                    f.appendChild(m); 
+                    f.submit();
+                    swal("Deleted!", "The item has been deleted.", "success");
+                } else {
+                    swal("Cancelled", "The item is safe :)", "error");
+                }
+            });
+
+        } else if (type == 'custom-html') {
+            swal({
+                title: 'HTML example',
+                html: 'You can use <b>bold text</b>, ' +
+                    '<a href="http://github.com">links</a> ' +
+                    'and other HTML tags'
+            });
+
+        } else if (type == 'auto-close') {
+            swal({
+                title: "Auto close alert!",
+                text: "I will close in 2 seconds.",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (type == 'input-field') {
+            swal({
+                    title: 'Input something',
+                    html: '<p><input id="input-field" class="form-control">',
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    allowOutsideClick: false
+                },
+                function() {
+                    swal({
+                        html: 'You entered: <strong>' +
+                            $('#input-field').val() +
+                            '</strong>'
+                    });
+                })
+        }
+    }
+
+}

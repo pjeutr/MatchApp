@@ -34,7 +34,6 @@ function timezones_update() {
 # GET /timezones/new
 function timezones_new() {
     $timezone_data = make_empty_obj(timezone_columns());
-    //$timezone_data = timezone_data_from_form();
     set('timezone', make_timezone_obj($timezone_data));
     //set('authors', find_authors());
     return html('timezones/new.html.php');

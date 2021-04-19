@@ -12,6 +12,14 @@ function find_setting_by_id($id) {
     return find_object_by_sql($sql, array(':id' => $id));
 }
 
+function check_password($v) {
+    $r = find_string_by_sql("SELECT value FROM `settings` WHERE name='password'");
+    if($v == $r) {
+        return true;
+    }
+    return false;
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 function update_setting_obj($setting_obj) {

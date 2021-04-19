@@ -1,6 +1,6 @@
 <?php 
-set('id', 3);
-set('title', 'Doors');
+set('id', 4);
+set('title', 'Timezones');
 ?>
 
 <div class="content">
@@ -9,33 +9,34 @@ set('title', 'Doors');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                    	<?= iconLink_to('New door', 'doors/new', 'btn-outline', 'nc-icon nc-bank') ?>
+                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-round', 'nc-icon nc-watch-time') ?>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>Start</th>
+                                <th>End</th>
                             </thead>
                             <tbody>
-<?php foreach ($doors as $row) { ?>
+<?php foreach ($timezones as $row) { ?>
 <tr>
-	<td><?= $row->id ?></td>
+    <td><?= $row->id ?></td>
     <td><?= $row->name ?></td>
-    <td><?= $row->created_at ?></td>
-    <td><?= iconLink_to("Edit", 'doors/'.$row->id.'/edit', 'btn-link', null) ?>
-    	&nbsp;
-    	<?= deleteLink_to('Delete', 'doors', $row->id) ?>
+    <td><?= date("H:i", $row->start) ?></td>
+    <td><?= date("H:i", $row->end) ?></td>
+    <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
+    <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-sm', null) ?>
+        &nbsp;
+        <?= deleteLink_to('Delete', 'timezones', $row->id) ?>
 </tr>
 <?php } ?>
                             </tbody>
-                        </table>                
+                        </table>
                     </div>
                 </div>
             </div>               
         </div>
     </div>
 </div>
-

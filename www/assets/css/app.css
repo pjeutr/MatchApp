@@ -2,6 +2,80 @@ td {
     vertical-align: top;
 }
 
+label.error {
+    color: red;
+    font-style: italic;
+}
+
+/* begin: table replace */
+.css-grid-table,
+.css-grid-table-header,
+.css-grid-table-body {
+display: grid;
+}
+
+.css-grid-table {
+grid-template-rows: 24px 72px;
+width: 80%;
+}
+
+.css-grid-table-header,
+.css-grid-table-body {
+grid-template-columns: auto auto auto minmax(150px, 50%);
+line-height: 24px; 
+}
+
+.css-grid-table-header {
+grid-column-gap: 2px;
+grid-template-rows: auto;
+}
+
+.css-grid-table-body {
+grid-template-rows: auto auto auto;
+}
+
+.css-grid-table-header div {
+    text-align: left;
+    vertical-align: middle;
+    border-color: #E3E3E3;  
+    
+    text-transform: uppercase;
+    color: #9A9A9A;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 0 8px;
+}
+
+.css-grid-table-body div div {
+    padding: 0;
+    border: 0;
+}
+
+.css-grid-table-body div {
+    text-align: left;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px !important;
+    padding: 12px 8px;
+}
+
+.nr {
+    width: 100px;
+}
+.name {
+    width: 300px;
+}
+.value {
+    width: 300px;
+}
+.action {
+    width: 150px;
+}
+/* end: table replace */
+
 .tim-row {
     margin-bottom: 20px;
 }
@@ -400,6 +474,10 @@ td {
 
 #icons-row i.now-ui-icons {
     font-size: 30px;
+}
+
+.icon-mid {
+    font-size: 2em;
 }
 
 .space {

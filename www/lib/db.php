@@ -1,5 +1,19 @@
 <?php
 
+function find_string_by_sql($sql = '', $params = array()) {
+    $db = option('db_conn');
+
+    $stmt = $db->prepare($sql);
+    if ($stmt) {
+        if ($stmt->execute()) {
+            return $stmt->fetchColumn();
+        }
+    } else {
+        echo "Error: " . $sql . "<br>" . $db->error;
+    }
+    return null;
+}
+
 function find_objects_by_sql($sql = '', $params = array()) {
     $db = option('db_conn');
 
@@ -75,6 +89,17 @@ function update_object_with_sql($sql) {
     $db = option('db_conn');
     $stmt = $db->prepare($sql);
     return $stmt->execute();
+}
+
+function update_with_sql($sql, $values) {
+    try {
+        $db = option('db_conn');
+        $db->prepare($sql)->execute($values);
+    } catch(PDOException $e) {
+        mylog($e);
+        return false;
+    }
+    return true;
 }
 
 function update_object($object, $table, $obj_columns = array()) {

@@ -9,10 +9,10 @@ set('title', 'Reports');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-              
+                        <?= iconLink_to('Download csv', 'reports/csv', 'btn-outline', 'fa fa-download') ?>
                     </div>
-                    <div class="card-body table-full-width table-responsive">
-                        <table class="table table-hover table">
+                    <div class="card-body table-responsive">
+                        <table class="table  table-hover table-striped">
                             <thead>
                                 <th>ID</th>
                                 <th>User</th>

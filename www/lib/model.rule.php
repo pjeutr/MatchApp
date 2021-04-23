@@ -1,6 +1,18 @@
 <?php
 
-function find_rules() {
+function find_rules() { 
+    $sql =
+        "SELECT " .
+        "b.id as id, b.name as name, b.group_id as group_id, b.door_id as door_id, b.timezone_id as timezone_id, " .
+        "g.name as group_name, d.name as door_name, t.name as timezone_name " .
+        "FROM rules b " .
+        "LEFT JOIN timezones t ON t.id=b.timezone_id ".
+        "LEFT JOIN doors d ON d.id=b.door_id ".
+        "LEFT JOIN groups g ON g.id=b.group_id";
+    return find_objects_by_sql($sql);
+}
+
+function find_rules2() {
     return find_objects_by_sql("SELECT * FROM `rules`");
 }
 
@@ -35,7 +47,7 @@ function make_rule_obj($params, $obj = null) {
 }
 
 function rule_columns() {
-    return array('name');
+    return array('group_id','door_id','timezone_id');
 }
 
 

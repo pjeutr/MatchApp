@@ -30,6 +30,7 @@ if(! isset($id)) {
     <!-- CSS Files -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../../assets/css/fontawesome.min.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" /> -->
     <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../../assets/css/app.css?2" rel="stylesheet" />
@@ -40,8 +41,11 @@ if(! isset($id)) {
         <div class="sidebar" data-image="../assets/img/sidebar-5.jpg" data-color="green">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="./" class="simple-text">
-                        Maasland
+                    <a href="./" class="simple-text logo-mini">
+                        <img width="30px" class="rounded" src="../../assets/img/apple-icon.png">
+                    </a>
+                    <a href="./" class="simple-text logo-normal text-left">
+                        Maasland<br>
                     </a>
                 </div>
                 <ul class="nav">
@@ -122,18 +126,29 @@ if(! isset($id)) {
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-success btn-fill btn-round btn-icon d-none d-lg-block">
+                                <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                                <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#wim"><?php echo $title ?></a>
+                    </div>
 
+                    
+                    
 
-
-                    <a class="navbar-brand" href="#wim"><?php echo $title ?></a>
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <div class="collapse navbar-collapse justify-content-between" id="navigation">
                         <ul class="nav navbar-nav ml-auto">
-
+                            <sub><?= date("Y-m-d H:i:s");?></sub>
+                        </ul> 
+                        <ul class="nav navbar-nav ml-auto">
                             <!--
                             <li class="dropdown nav-item">
                                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">

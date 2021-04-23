@@ -7,11 +7,11 @@ set('title', 'Timezones');
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card strpied-tabled-with-hover">
+                <div class="card">
                     <div class="card-header ">
-                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-outline', 'nc-icon nc-watch-time') ?>
+                        <?= iconLink_to('Add Timezone', 'timezones/new', 'btn-outline') ?>
                     </div>
-                    <div class="card-body table-full-width table-responsive">
+                    <div class="card-body table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>ID</th>

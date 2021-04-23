@@ -7,19 +7,19 @@ set('title', 'Settings');
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12">
-                <div class="card strpied-tabled-with-hover">
-                    <div class="card-header ">
-                        
-                        <div class="css-grid-table">
-                            <div class="css-grid-table-header">
-                                <div class="nr">ID</div>
-                                <div class="name">Name</div>
-                                <div class="value">Value</div>
-                                <div class="action">Action</div>
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body table-responsive">
+                            <div class="flex-table row header" role="rowgroup">
+                              <div class="flex-row-1 first" role="columnheader">ID</div>
+                              <div class="flex-row-3" role="columnheader">Name</div>
+                              <div class="flex-row-4" role="columnheader">Value</div>
+                              <div class="flex-row-2" role="columnheader">Action</div>
                             </div>
-                            <div class="css-grid-table-body" style="display:none"><!-- Validation Error messages on the first row is not positioning right --></div>
 
-<?php foreach ($settings as $row) { 
+    <?php foreach ($settings as $row) { 
     // 1=pass
     // 2=checkbox
     // 3=number
@@ -38,31 +38,29 @@ set('title', 'Settings');
         $fieldType = 'checkbox';
         $fieldAtrribute = 'data-toggle="switch" '.($row->value ? 'checked=""': '').' data-on-color="info" data-off-color="info" data-eye-open-class="fa-toggle-off"  data-eye-close-class="fa-toggle-on"';
     }
-?>
-
+        ?>                        
 <form class="settingsForm" id="row<?= $row->id ?>" action="<?= url_for('settings', $row->id) ?>" method="POST">
     <input type="hidden" name="_method" id="_method" value="PUT">
     <input type="hidden" name="setting_name" value="<?= $row->name ?>">
     <input type="hidden" name="setting_type" value="<?= $row->type ?>">
 
-    <div class="css-grid-table-body">
-        <div class="nr"><?= $row->id ?></div>
-        <div class="name"><?= $row->title ?></div>
-        <div class="value">
+    <div class="flex-table row" role="rowgroup">
+        <div class="flex-row-1 flex-cell first" role="cell"><?= $row->id ?></div>
+        <div class="flex-row-3 flex-cell flex-cell" role="cell"><?= $row->title ?></div>
+        <div class="flex-row-4 flex-cell" role="cell">
             <input type="<?= $fieldType ?>" <?= $fieldAtrribute ?> class="form-control"
                 name="<?= $row->name ?>" value="<?= $row->value ?>"> 
         </div>
-        <div class="action">
+        <div class="flex-row-2 flex-cell" role="cell">
             <button type="submit" class="btn btn-success">
-              <i class="fa fa-edit"></i> Change
+                <i class="fa fa-edit"></i> Change
             </button>
         </div>
-  
+
     </div>
-</form> 
-
-<?php } ?>
-
+</form>
+    
+<?php } ?>             
                         </div>                                          
                     </div>
                 </div>

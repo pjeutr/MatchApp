@@ -4,6 +4,8 @@
 function groups_index() {
     set('groups', find_groups());
     set('doors', find_doors());
+    set('timezones', find_timezones());
+    set('rules', find_rules());
     return html('groups/index.html.php');
 }
 
@@ -55,12 +57,46 @@ function groups_destroy() {
     redirect('groups');
 }
 
+# PUT /grules/:id
+function grules_update() {
+    $rule_data = rule_data_from_form2();
+    $rule = get_rule_or_404();
+    $rule = make_rule_obj($rule_data, $rule);
+
+    update_rule_obj($rule);
+    redirect('groups');
+}
+
+# POST /grules
+function grules_create() {
+    $rule_data = rule_data_from_form2();
+    $rule = make_rule_obj($rule_data);
+    try {
+        create_rule_obj($rule);
+    } catch(PDOException $e) {
+        //TODO SQLSTATE[23000]: Integrity constraint violation: 19
+        mylog($e);
+        flash('message', 'That door was already assigned to this group!');
+        redirect('groups');;
+    }
+    redirect('groups');
+}
+
+# DELETE /grules/:id
+function grules_destroy() {
+    delete_rule_by_id(filter_var(params('id'), FILTER_VALIDATE_INT));
+    redirect('groups');
+}
 function get_group_or_404() {
     $group = find_group_by_id(filter_var(params('id'), FILTER_VALIDATE_INT));
     if (is_null($group)) {
         halt(NOT_FOUND, "This group doesn't exist.");
     }
     return $group;
+}
+
+function rule_data_from_form2() {
+    return isset($_POST['rule']) && is_array($_POST['rule']) ? $_POST['rule'] : array();
 }
 
 function group_data_from_form() {

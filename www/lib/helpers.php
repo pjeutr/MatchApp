@@ -13,10 +13,39 @@ class GVAR
     public static $GPIO_ALARM1 = 65; //NUC980_PC2
     public static $DOOR_TIMER = 2; //Door lock stays open for 2s
 
+    public static $GPIO_BUTTON1 = 170; //NUC980_PF10
+    public static $GPIO_BUTTON2 = 169; //NUC980_PF9
+
     //$RD1_RLED_PIN = 3; //NUC980_PA3   //reader1 rled output
     public static $RD1_GLED_PIN = 2; //NUC980_PA2   //reader1 gled output
     //$RD2_RLED_PIN = 11; //NUC980_PA11  //reader2 rled output
     public static $RD2_GLED_PIN = 10;  //NUC980_PA10  //reader2 gled output
+}
+
+function setupGPIOInputs() {
+    //
+    shell_exec("echo ".GVAR::$GPIO_BUTTON1." > /sys/class/gpio/export");
+    shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON1."/direction");
+    //
+    shell_exec("echo ".GVAR::$GPIO_BUTTON2." > /sys/class/gpio/export");
+    shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON2."/direction");
+    //
+    return shell_exec("cat /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON1."/value").":".
+        shell_exec("cat /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON2."/value");
+}
+
+function checkInputs() {
+    if(shell_exec("cat /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON1."/value") == 1) return -1;
+    if(shell_exec("cat /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON2."/value") == 1) return -2;
+    return 0;
+}
+
+function handleSwitch($reader) {
+    mylog("handleSwitch ".$reader);
+
+    //save report and open the door 
+    saveReport($user->name, $msg);
+    openDoor(2);
 }
 
 function handleUserAccess($user, $reader) {
@@ -54,6 +83,23 @@ function mylog($message) {
     }
     return error_log($message);
 }
+
+/*
+
+door1
+Reader1 Reader2
+Switch1 Switch2 REX (Request to Exit).
+
+-Tijdelijke Pincodes, geldigheid op tijd/datum of aantal keer
+-export in csv, voor reports
+-signalering wat mee doen
+
+15. tijdsprofielen - risico dat een relais niet urenlang kan blijven ingeschakeld (specs opzoeken)
+25. APB houdt in Anti-passback. Dus het doorgeven van een toegangspas aan een ander. Is wel meer van op internet te vinden als dit nog niet duidelijk is.
+33. Volledig naar fabrieksinstelling te zetten met drukknop op print plaat (MH)
+Heb ik in het begin met Wang over gehad, maar heb ik niks meer over gehoord. Zal nog eens navragen. Zit al PCB
+
+*/
 
 function openDoor($reader) {
     //determine which reader is used, so we can select the proper led
@@ -125,9 +171,9 @@ function link_to($params = null) {
 
 function iconLink_to($name, $link, $style, $icon) {
 	$url = url_for($link);
-    $fa = isset($icon) ? "<i class=\"fa $icon\"></i>" : "";
+    $fa = isset($icon) ? "<i class=\"fa $icon\"></i>" : "<i class=\"fa fa-edit\"></i>";
     
-    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-success $style\" href=\"$url\"><i class=\"fa fa-edit\"></i>$name</a>";    
+    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-success $style\" href=\"$url\">$fa</i>$name</a>";    
 
     //return '<a href="#" rel="tooltip" title="Edit Profile" class="btn btn-success btn-link btn-xs"><i class="fa fa-edit"></i></a>';
     //return "<a class=\"btn $style\" href=\"$url\">$fa $name</a>";    
@@ -140,7 +186,7 @@ function deleteLink_to($params = null) {
     
     //return '<a href="#" rel="tooltip" title="Remove" class="btn btn-danger btn-link"><i class="fa fa-times"></i></a>';
 
-    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-danger btn-link\" href=\"$url\"
+    return "<a rel=\"tooltip\" title=\"$name\" class=\"btn btn-danger btn-link text-danger\" href=\"$url\"
     onclick=\"app.areYouSure(this);return false;\"
     ><i class=\"fa fa-times\"></i>$name</a>";  
 

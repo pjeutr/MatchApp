@@ -6,12 +6,12 @@ set('title', 'Users');
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card strpied-tabled-with-hover">
-                    <div class="card-header ">
+            <div class="col-xs-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
                     	<?= iconLink_to('New user', 'users/new', 'btn-outline', 'fa-user') ?>
                     </div>
-                    <div class="card-body table-full-width table-responsive">
+                    <div class="card-body table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>ID</th>

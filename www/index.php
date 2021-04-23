@@ -12,22 +12,21 @@ function configure() {
     option('dsn', $dsn);
     option('db_conn', $db);
     option('debug', true);
+    option('session', 'Maasland_Match_App');
 }
 
 function before($route = array())
-{
-    error_log("before session=".$_SESSION['login']."");
-    error_log("l=".request_method()."_".request_uri());
+{   
+    //authentication
+    //error_log("l=".request_method()."_".request_uri());
+    //Allow login POST to submit
     if(request_method() != "POST") {
+      //need session to get in dashboard
       if(isset($_SESSION['login'])) {
         layout('layout/default.html.php');
       } else {
-        //$route['options']['authenticate'];
-        //flash('errors', $errors);
-        error_log("no session");
         echo login_page();
-        //echo after(error_notices_render() . login_page());
-        //stop_and_exit();
+        stop_and_exit();
       }
     }
 }
@@ -117,6 +116,8 @@ dispatch_put   ('settings/:id', 'settings_update');
 dispatch_get   ('last_reports',   'last_reports');
 
 // doors controller
+dispatch_put   ('controller/:id', 'switch_update');
+
 dispatch_get   ('doors',          'doors_index');
 dispatch_post  ('doors',          'doors_create');
 dispatch_get   ('doors/new',      'doors_new');
@@ -124,15 +125,6 @@ dispatch_get   ('doors/:id/edit', 'doors_edit');
 dispatch_get   ('doors/:id',      'doors_show');
 dispatch_put   ('doors/:id',      'doors_update');
 dispatch_delete('doors/:id',      'doors_destroy');
-
-// access controller
-dispatch_get   ('rules',          'rules_index');
-dispatch_post  ('rules',          'rules_create');
-dispatch_get   ('rules/new',      'rules_new');
-dispatch_get   ('rules/:id/edit', 'rules_edit');
-dispatch_get   ('rules/:id',      'rules_show');
-dispatch_put   ('rules/:id',      'rules_update');
-dispatch_delete('rules/:id',      'rules_destroy');
 
 // users controller
 dispatch_get   ('users',          'users_index');
@@ -151,6 +143,9 @@ dispatch_get   ('groups/:id/edit', 'groups_edit');
 dispatch_get   ('groups/:id',      'groups_show');
 dispatch_put   ('groups/:id',      'groups_update');
 dispatch_delete('groups/:id',      'groups_destroy');
+dispatch_post  ('grules',          'grules_create');
+dispatch_put   ('grules/:id',      'grules_update');
+dispatch_delete('grules/:id',      'grules_destroy');
 
 // timezones controller
 dispatch_get   ('timezones',          'timezones_index');

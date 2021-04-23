@@ -10,8 +10,8 @@ set('title', 'Events');
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
                     </div>
-                    <div class="card-body table-full-width table-responsive">
-                        <table class="table table-hover table">
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-striped">
                             <thead>
                                 <th>Nr</th>
                                 <th>Reader</th>

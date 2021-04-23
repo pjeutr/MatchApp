@@ -23,9 +23,9 @@ $().ready(function() {
         // },
         // added submitHandler only for demo
         submitHandler: function(form) { 
-            console.log(this);
-            console.log(form);
-            console.log(event);
+            // console.log(this);
+            // console.log(form);
+            // console.log(event);
             form.submit();
             //return false; 
         }

@@ -1,5 +1,19 @@
 <?php
 
+# PUT /controller/:id
+function switch_update() {
+    $id = filter_var(params('id'), FILTER_VALIDATE_INT);
+    error_log("switch_update controllerId=".$id);
+    error_log(print_r($_POST, true));
+
+    // $door_data = door_data_from_form();
+    // $door = get_door_or_404();
+    // $door = make_door_obj($door_data, $door);
+
+    // update_door_obj($door);
+    redirect('doors');
+}
+
 # GET /doors
 function doors_index() {
     set('doors', find_doors());

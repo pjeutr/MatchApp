@@ -94,6 +94,7 @@ function dashboard_page() {
   return html('dashboard.html.php');
 }
 dispatch('reports', 'report_index');
+dispatch('reports_csv', 'report_csv');
 dispatch('events', 'event_index');
 
 //TODO remove testpages

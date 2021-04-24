@@ -13,7 +13,7 @@ set('title', 'Doors');
                     	<!-- <?= iconLink_to('New door', 'doors/new', 'btn-outline') ?> -->
                     </div>
                     <div class="card-body table-responsive">
-                        <div class="container-fluid">
+                        <div class="container-fluid border rounded">
                             <div class="row border">
                                 <div class="col-sm-4 custom-header border-left-0">
                                         Master Controller                                

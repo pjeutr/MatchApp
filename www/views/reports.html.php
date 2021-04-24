@@ -9,7 +9,7 @@ set('title', 'Reports');
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <?= iconLink_to('Download csv', 'reports/csv', 'btn-outline', 'fa fa-download') ?>
+                        <?= iconLink_to('Download csv', 'reports_csv', 'btn-outline', 'fa fa-download') ?>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table  table-hover table-striped">

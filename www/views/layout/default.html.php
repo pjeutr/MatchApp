@@ -30,7 +30,7 @@ if(! isset($id)) {
     <!-- CSS Files -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../../assets/css/fontawesome.min.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../../assets/css/app.css?2" rel="stylesheet" />

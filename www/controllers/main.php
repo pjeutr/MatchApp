@@ -1,5 +1,9 @@
 <?php
 
+require "lib/csv-9.5.0/autoload.php";
+use League\Csv\Writer;
+use League\Csv\Reader;
+
 # GET /
 function main_page() {
     return html('main.html.php');
@@ -11,6 +15,34 @@ function event_index() {
 function report_index() {
     set('reports', find_reports());
     return html('reports.html.php');
+}
+function report_csv() {
+    //t
+    $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+    //https://csv.thephpleague.com/9.0/interoperability/encoding/
+    //let's set the output BOM
+    $csv->setOutputBOM(Reader::BOM_UTF8);
+    //let's convert the incoming data from iso-88959-15 to utf-8
+    //$csv->addStreamFilter('convert.iconv.ISO-8859-15/UTF-8');
+    $results = find_reports();
+
+    $dbh = option('db_conn');
+    $sth = $dbh->prepare(
+        "SELECT id,door,user,updated_at,created_at FROM reports LIMIT 200"
+    );
+    //because we don't want to duplicate the data for each row
+    // PDO::FETCH_NUM could also have been used
+    $sth->setFetchMode(PDO::FETCH_ASSOC);
+    $sth->execute();
+
+    $filename = "reports_".date("Y-m-d_H:i:s");
+    $columns = ["id","door","user","updated_at","created_at"];
+    $csv->insertAll($sth);
+    $csv->output(
+        //to get output in browser escape the next line/filename
+        $filename.'.csv'
+    );
+    exit(); //safari was giving .html, this ends it
 }
 function timezone_index() {
     set('timezones', find_timezones());

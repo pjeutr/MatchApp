@@ -15,7 +15,8 @@ if(! isset($id)) {
     $id = 2;
 }
 
-
+//TODO get timezone from settings in db
+date_default_timezone_set('Europe/Amsterdam');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,16 +29,20 @@ if(! isset($id)) {
     <title>Maasland Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!-- CSS Files -->
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../assets/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/fontawesome.min.css" rel="stylesheet" />
+    <!-- TODO hamburger, radio en checkbox werken niet bij de lokale fontawesome, daarom de online versie als backup -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
+    <link href="/assets/css/light-bootstrap-dashboard.css?v=2.0.1a" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/css/app.css?2" rel="stylesheet" />
+    <link href="/assets/css/app.css?3" rel="stylesheet" />
 </head>
 
 <body>
     <div class="wrapper">
+        <div class="loaderImage" style="display: none;">
+            <img src="/assets/img/spinner.gif">
+        </div>  
         <div class="sidebar" data-image="../assets/img/sidebar-5.jpg" data-color="green">
             <div class="sidebar-wrapper">
                 <div class="logo">
@@ -118,7 +123,7 @@ if(! isset($id)) {
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    MatchApp v0.1
+                    MatchApp v0.2
                 </div>
             </div>
         </div>
@@ -216,40 +221,40 @@ if(! isset($id)) {
 </body>
 
 <!--   Core JS Files   -->
-<script src="../../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../../assets/js/plugins/bootstrap-switch.js"></script>
+<script src="/assets/js/plugins/bootstrap-switch.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+<script src="/assets/js/plugins/bootstrap-notify.js"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="../../assets/js/plugins/moment.min.js"></script>
+<script src="/assets/js/plugins/moment.min.js"></script>
 <!--  DatetimePicker   -->
-<script src="../../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+<script src="/assets/js/plugins/bootstrap-datetimepicker.js"></script>
 <!--  Sweet Alert  -->
-<script src="../../assets/js/plugins/sweetalert2.min.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/sweetalert2.min.js" type="text/javascript"></script>
 <!--  Tags Input  -->
-<script src="../../assets/js/plugins/bootstrap-tagsinput.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/bootstrap-tagsinput.js" type="text/javascript"></script>
 <!--  Sliders  -->
-<script src="../../assets/js/plugins/nouislider.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/nouislider.js" type="text/javascript"></script>
 <!--  Bootstrap Select  -->
-<script src="../../assets/js/plugins/bootstrap-selectpicker.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/bootstrap-selectpicker.js" type="text/javascript"></script>
 <!--  jQueryValidate  -->
-<script src="../../assets/js/plugins/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/jquery.validate.min.js" type="text/javascript"></script>
 <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-<script src="../../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+<script src="/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
 <!--  Bootstrap Table Plugin -->
-<script src="../../assets/js/plugins/bootstrap-table.js"></script>
+<script src="/assets/js/plugins/bootstrap-table.js"></script>
 <!--  DataTable Plugin -->
-<script src="../../assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <!--  Full Calendar   -->
-<script src="../../assets/js/plugins/fullcalendar.min.js"></script>
+<script src="/assets/js/plugins/fullcalendar.min.js"></script>
 <!--  Hide Password  -->
-<script src="../../assets/js/plugins/bootstrap-show-password.min.js"></script>
+<script src="/assets/js/plugins/bootstrap-show-password.min.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="../../assets/js/light-bootstrap-dashboard.js?v=2.0.1" type="text/javascript"></script>
-<script src="../../assets/js/app.js?2"></script>
+<script src="/assets/js/light-bootstrap-dashboard.js?v=2.0.1" type="text/javascript"></script>
+<script src="/assets/js/app.js?2"></script>
 <script type="text/javascript">
     <?= isset($message) ? 'swal('.$message.');' : "" ?>
 </script>

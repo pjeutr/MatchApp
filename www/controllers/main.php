@@ -81,6 +81,9 @@ function settings_update() {
 function last_reports() {
     return (json(find_reports()));
 }
+function last_scanned_key() {
+    return get_last_scanned_key();
+}
 
 //TODO ajaxify
 //user render ipv html 

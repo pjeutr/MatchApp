@@ -1,13 +1,6 @@
 <?php
 class GVAR
 {
-    #define SENSER_PIN     NUC980_PB4   //senser input
-    #define TAMPER_PIN     NUC980_PB13  //tamp input
-    #define ARM_PIN        NUC980_PC0   //alarm input
-    #define RELAY3_PIN     NUC980_PC1   //alarm relay output
-    #define RELAY2_PIN     NUC980_PC2   //relay2 output
-    #define SOUNDER_PIN    NUC980_PC3   //sounder output
-    #define RELAY1_PIN     NUC980_PC4   //relay1 output
     public static $GPIO_DOOR1 = 68; //NUC980_PC4
     public static $GPIO_DOOR2 = 66; //NUC980_PC2
     public static $GPIO_ALARM1 = 65; //NUC980_PC2
@@ -50,7 +43,7 @@ function handleSwitch($reader) {
 
 function handleUserAccess($user, $reader) {
     //update last seen field of user
-    update_user_last_seen($user);
+    update_user_statistics($user);
     $door = find_door_by_id($reader);
 
     //check if the group/user has access

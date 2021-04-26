@@ -1,7 +1,7 @@
 <?php
 
 function find_settings() {
-    return find_objects_by_sql("SELECT * FROM `settings`");
+    return find_objects_by_sql("SELECT * FROM settings WHERE status=1");
 }
 
 function find_setting_by_id($id) {

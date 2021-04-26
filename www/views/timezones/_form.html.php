@@ -22,7 +22,9 @@
   </div>
 
   <?php echo buttonLink_to('Cancel', 'timezones'), "\n" ?>
-  <input type="submit" class="btn btn-secondary" value="Save" />
+  <button type="submit" class="btn btn-success">
+    <i class="fa fa-save"></i> Save
+  </button>
 </form>
 
                     </div>

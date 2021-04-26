@@ -12,6 +12,10 @@ function find_event_by_id($id) {
     return find_object_by_sql($sql, array(':id' => $id));
 }
 
+function get_last_scanned_key() {
+    return find_string_by_sql("SELECT keycode FROM events ORDER BY id DESC LIMIT 1"); 
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 function update_event_obj($event_obj) {

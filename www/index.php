@@ -34,8 +34,8 @@ function before($route = array())
 //layout('layout/default.html.php');
 
 function after($output) {
-    $time = number_format( (float)substr(microtime(), 0, 10) - LIM_START_MICROTIME, 6);
-    $output .= "<!-- page rendered in $time sec., on " . date(DATE_RFC822)."-->";
+    // $time = number_format( (float)substr(microtime(), 0, 10) - LIM_START_MICROTIME, 6);
+    // $output .= "<!-- page rendered in $time sec., on " . date(DATE_RFC822)."-->";
     return $output;
 }
 
@@ -115,6 +115,7 @@ dispatch_put   ('settings/:id', 'settings_update');
 
 //ajax
 dispatch_get   ('last_reports',   'last_reports');
+dispatch_get   ('last_scanned_key.json',   'last_scanned_key');
 
 // doors controller
 dispatch_put   ('controller/:id', 'switch_update');

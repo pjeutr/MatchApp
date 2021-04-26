@@ -31,6 +31,32 @@ $().ready(function() {
         }
     });
 
+    if ($("#userForm").length != 0) {
+        $("#scan_key").click(function () {
+            //$('.loaderImage').show();
+            app.addSpinnerToButton(this, true);
+            var self = this;
+
+            $.ajax({
+                //url: endpoint + "?key=" + apiKey + " &q=" + $( this ).text(),
+                //contentType: "application/json",
+                //dataType: 'json',
+                url: "/?/last_scanned_key.json",
+                success: function(result){
+                    $("#user_keycode").val(result);
+                    //$('.loaderImage').hide();
+                    app.addSpinnerToButton(self, false);
+                },
+                error: function (response) {
+                   //Handle error
+                   //$('.loaderImage').hide();
+                   app.addSpinnerToButton(self, false);
+                }
+            });
+        });
+    };
+
+
     if ($(".settingsForm").length != 0) {
         console.log("init settingsForm");
         //$("#settingsForm").validate();
@@ -254,6 +280,14 @@ $().ready(function() {
 });
 
 app = {
+    //Button spinner
+    addSpinnerToButton: function(button, showSpinner) {
+        console.log("buttonSpinner="+showSpinner);
+        button.disabled=showSpinner; 
+        button.innerHTML=showSpinner ? '<i class="fa fa-spinner fa-spin"></i> Loading…':'Use scanned key';
+        console.log(button);
+    },
+
     // Sweet Alerts
     timerAlert: function(message, time, id) {
         $.ajax({

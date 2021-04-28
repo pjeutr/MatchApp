@@ -15,7 +15,7 @@ set('title', 'Doors');
                     <div class="card-body table-responsive">
                         <div class="container-fluid border rounded">
                             <div class="row border">
-                                <div class="col-sm-4 custom-header border-left-0">
+                                <div class="col-sm-4 custom-header-head border-left-0">
                                         Master Controller                                
                                 </div>
                                 <?php 

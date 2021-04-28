@@ -30,6 +30,16 @@ label.error {
     background-color:rgba(203,203,210,.30);
     line-height: 3rem;
 }
+.custom-header-head {
+    border: 0;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -ms-flex-pack: center !important;
+    justify-content:center !important;
+    background-color: #78b414;
+    color:white;
+    line-height: 3rem;
+}
 /* 
  *  table replace 
  *  inspired by https://medium.com/@snowleo208/how-to-create-responsive-table-d1662cb62075

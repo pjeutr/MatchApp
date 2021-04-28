@@ -35,7 +35,7 @@ date_default_timezone_set('Europe/Amsterdam');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="/assets/css/light-bootstrap-dashboard.css?v=2.0.1a" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/css/app.css?3" rel="stylesheet" />
+    <link href="/assets/css/app.css?4" rel="stylesheet" />
 </head>
 
 <body>
@@ -123,7 +123,7 @@ date_default_timezone_set('Europe/Amsterdam');
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    MatchApp v0.2
+                    MatchApp v0.3
                 </div>
             </div>
         </div>

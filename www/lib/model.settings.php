@@ -6,10 +6,10 @@ function find_settings() {
 
 function find_setting_by_id($id) {
     $sql =
-        "SELECT * " .
+        "SELECT value " .
         "FROM settings " .
-        "WHERE id=:id";
-    return find_object_by_sql($sql, array(':id' => $id));
+        "WHERE id=".$id;
+    return find_string_by_sql($sql, array(':id' => $id));
 }
 
 function check_password($v) {

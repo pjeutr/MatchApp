@@ -3,8 +3,10 @@
 require_once '/maasland_app/www/lib/limonade.php';;
 require_once '/maasland_app/www/lib/db.php';
 require_once '/maasland_app/www/lib/helpers.php';
+//load models for used db methods
 require_once '/maasland_app/www/lib/model.report.php';
 require_once '/maasland_app/www/lib/model.user.php';
+require_once '/maasland_app/www/lib/model.settings.php';
 require_once '/maasland_app/www/lib/model.door.php';
 
 //initialize database connection

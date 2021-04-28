@@ -7,12 +7,16 @@ class GVAR
     public static $DOOR_TIMER = 2; //Door lock stays open for 2s
 
     public static $GPIO_BUTTON1 = 170; //NUC980_PF10
-    public static $GPIO_BUTTON2 = 169; //NUC980_PF9
+    public static $GPIO_BUTTON2 = 169; //NUC980_PF9 - CAT_PIN //contact input
+    public static $GPIO_DOORSTATUS1 = 168; //NUC980_PF8 - PSU_PIN //psu input
+    public static $GPIO_DOORSTATUS2 = 45; //NUC980_PB13 - TAMPER_PIN //tamp input
 
     //$RD1_RLED_PIN = 3; //NUC980_PA3   //reader1 rled output
     public static $RD1_GLED_PIN = 2; //NUC980_PA2   //reader1 gled output
     //$RD2_RLED_PIN = 11; //NUC980_PA11  //reader2 rled output
     public static $RD2_GLED_PIN = 10;  //NUC980_PA10  //reader2 gled output
+
+    public static $BUZZER_PIN = 79;  //NUC980_PC15  //buzzer output
 }
 
 function setupGPIOInputs() {
@@ -21,6 +25,15 @@ function setupGPIOInputs() {
     shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON1."/direction");
     //
     shell_exec("echo ".GVAR::$GPIO_BUTTON2." > /sys/class/gpio/export");
+    shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON2."/direction");
+    //
+    shell_exec("echo ".GVAR::$GPIO_DOORSTATUS1." > /sys/class/gpio/export");
+    shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_DOORSTATUS1."/direction");
+    //
+    shell_exec("echo ".GVAR::$GPIO_DOORSTATUS1." > /sys/class/gpio/export");
+    shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_DOORSTATUS1."/direction");
+    //
+    shell_exec("echo ".GVAR::$BUZZER_PIN." > /sys/class/gpio/export");
     shell_exec("echo in > /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON2."/direction");
     //
     return shell_exec("cat /sys/class/gpio/gpio".GVAR::$GPIO_BUTTON1."/value").":".
@@ -95,6 +108,10 @@ Heb ik in het begin met Wang over gehad, maar heb ik niks meer over gehoord. Zal
 */
 
 function openDoor($reader) {
+    //Read settings
+    $doorOpen=find_setting_by_id(1);
+    $soundBuzzer=find_setting_by_id(2);
+    //$doorOpen=GVAR::$DOOR_TIMER;
     //determine which reader is used, so we can select the proper led
     $gled = 0;
     $gid = 0;
@@ -112,15 +129,17 @@ function openDoor($reader) {
     if($reader == 3) {
         $gid = GVAR::$GPIO_ALARM1;
     }
-    mylog("Open Door GPIO=".$gid." reader=".$reader." LED=".$gled."\n");
+    mylog("Open Door GPIO=".$gid." reader=".$reader." LED=".$gled." sound_buzzer=".$soundBuzzer." door_open=".$doorOpen."\n");
     //open lock
     setGPIO($gid, 1);
-    //turn on led
+    //turn on led and buzzer
     if($gled) setGPIO($gled, 1);
+    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 1);
     //wait some time. close lock
-    sleep(GVAR::$DOOR_TIMER);
-    //turn off led
+    sleep($doorOpen);
+    //turn off led and buzzer
     if($gled) setGPIO($gled, 0);
+    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 0);
     return setGPIO($gid, 0);
 }
 

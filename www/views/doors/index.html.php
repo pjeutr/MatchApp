@@ -2,6 +2,7 @@
 set('id', 3);
 set('title', 'Doors');
 
+$controller = $controllers[0];
 ?>
 
 <div class="content">
@@ -16,11 +17,9 @@ set('title', 'Doors');
                         <div class="container-fluid border rounded">
                             <div class="row border">
                                 <div class="col-sm-4 custom-header-head border-left-0">
-                                        Master Controller                                
+                                        <?= $controller->name ?> Controller                               
                                 </div>
                                 <?php 
-
-                                $switches = ["Reader 1","Reader 2","Button 1","Button 2"];
 
                                 foreach ($doors as $row) { 
 
@@ -40,19 +39,64 @@ set('title', 'Doors');
                             <form class="doorForm" id="row" action="<?= url_for('controller', 1) ?>" method="POST">
                             <input type="hidden" name="_method" id="_method" value="PUT">
 
-                            <?php foreach ($switches as $key=>$value) { ?>
-                            <div class="row border border-top-0">
-                                <div class="col-sm-4 p-3 bg-custom">
-                                    <?= $value ?> 
+                            <?php foreach (["Reader 1","Reader 2","Button 1","Button 2"] as $key=>$value) { 
+                                $switch_1 = $controller->reader_1;
+                                $switch_2 = $controller->reader_2;
+                                $switch_3 = $controller->button_1;
+                                $switch_4 = $controller->button_2;
+                                $nr = $key + 1; ?>
+
+                                <div class="row border border-top-0">
+                                    <div class="col-sm-4 p-3 bg-custom">
+                                        <?= $value ?> 
+                                    </div>
+                                    <div class="col-sm-4 custom-cell">
+                                        <input class="form-check-input" type="radio" 
+                                        <?= (${'switch_'.$nr} == "1") ? 'checked' : ''?>  
+                                        name="switch[<?= $nr ?>]" value="1"><!-- Door 1 -->
+                                    </div>
+                                    <div class="col-sm-4 custom-cell">
+                                        <input class="form-check-input" type="radio" 
+                                        <?= (${'switch_'.$nr} == "2") ? 'checked' : ''?> 
+                                        name="switch[<?= $nr ?>]" value="2"><!-- Door 2 -->
+                                    </div>
                                 </div>
-                                <div class="col-sm-4 custom-cell">
-                                    <input class="form-check-input" checked type="radio" name="switch_<?= $key ?>" value="door_1">
+
+                            <?php } ?>
+
+                            <div class="row border">
+                                <div class="col-sm-4 custom-header border-left-0">
+                                                                 
                                 </div>
-                                <div class="col-sm-4 custom-cell">
-                                    <input class="form-check-input" type="radio" name="switch_<?= $key ?>" value="door_2">
+                                <div class="col-sm-4 custom-header">
+                                    Alarm 1
+                                </div>
+                                <div class="col-sm-4 custom-header">
+                                    Alarm 2
                                 </div>
                             </div>
+
+                            <?php foreach (["Sensor 1","Sensor 2"] as $key=>$value) {
+                                $nr = $key + 1; ?>
+
+                                <div class="row border border-top-0">
+                                    <div class="col-sm-4 p-3 bg-custom">
+                                        <?= $value ?> 
+                                    </div>
+                                    <div class="col-sm-4 custom-cell">
+                                        <input class="form-check-input" type="radio" 
+                                        <?= ($controller->{'sensor_'.$nr} == "1") ? 'checked' : ''?>  
+                                        name="sensor[<?= $nr ?>]" value="1"><!-- Alarm 1 -->
+                                    </div>
+                                    <div class="col-sm-4 custom-cell">
+                                        <input class="form-check-input" type="radio" 
+                                        <?= ($controller->{'sensor_'.$nr} == "2") ? 'checked' : ''?> 
+                                        name="sensor[<?= $nr ?>]" value="2"><!-- Alarm 2 -->
+                                    </div>
+                                </div>
+
                             <?php } ?>
+
                             <div class="row border border-top-0">
                                 <div class="col-sm-4 p-3 custom-header"></div>
                                 <div class="col-sm-8 p-3 d-flex justify-content-center">

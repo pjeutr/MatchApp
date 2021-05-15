@@ -3,11 +3,14 @@
 require_once '/maasland_app/www/lib/limonade.php';;
 require_once '/maasland_app/www/lib/db.php';
 require_once '/maasland_app/www/lib/helpers.php';
+require_once '/maasland_app/www/lib/logic.door.php';
 //load models for used db methods
 require_once '/maasland_app/www/lib/model.report.php';
 require_once '/maasland_app/www/lib/model.user.php';
 require_once '/maasland_app/www/lib/model.settings.php';
 require_once '/maasland_app/www/lib/model.door.php';
+require_once '/maasland_app/www/lib/model.controller.php';
+require_once '/maasland_app/www/lib/model.rule.php';
 
 //initialize database connection
 $dsn = "sqlite:/maasland_app/www/db/dev.db";
@@ -25,7 +28,10 @@ $current_contents = "";
 
 while(true) {
 	global $current_contents;
-    $new_contents = file_get_contents($filename).":".checkInputs();
+    $new_contents = file_get_contents($filename);
+
+    //is some button pressed?
+    $action = checkAndHandleInputs();
 
     if (strcmp($new_contents, $current_contents)) {
 		$current_contents = $new_contents;
@@ -36,32 +42,20 @@ while(true) {
 		$keycode = $content[1];
 		$reader = $content[2];
 		$raw = $content[3];
-		$switch = $content[4];
 
+		$actor = $keycode;
+		$action = "Reader ".$reader;
+
+		//get User for the key
+		$user = find_user_by_keycode($keycode);
+		if($user) {
+			$actor = $user->name;
+			$action = handleUserAccess($user,$reader);
+		} 
 		
-		if($reader==0) {
-			$reader = $switch;
-		}
+		//save report
+		saveReport($actor, $action);
 
-		//save event
-		$report = make_report_obj([
-			"nr"  => $nr,
-			"keycode"  => $keycode,
-		    "reader" => $reader
-		]);
-		$id = create_object($report, 'events', null);
-
-		//Button1 = -1, Button2 = -2
-		//Reader1 = 1, Reader2 = 2
-		if($reader < 0) {
-			handleSwitch($reader);
-		} else {
-			//get User for the key
-			$user = find_user_by_keycode($keycode);
-			if($user) {
-				handleUserAccess($user,$reader);
-			}
-		}
 		//wait half a second, to avoid too much load on CPU
 		usleep(500000);
     }

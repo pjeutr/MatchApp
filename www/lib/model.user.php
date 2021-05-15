@@ -35,7 +35,7 @@ function find_user_by_keycode($keycode) {
 }
 
 function update_user_statistics($user_obj) {
-    //updat last_seen en visit_count
+    //update last_seen en visit_count
     $sql = "UPDATE users SET last_seen = DateTime('now'), visit_count=visit_count+1  WHERE id = ".$user_obj->id;
     return update_object_with_sql($sql, 'users');
 }

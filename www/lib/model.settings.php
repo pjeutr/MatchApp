@@ -12,6 +12,14 @@ function find_setting_by_id($id) {
     return find_string_by_sql($sql, array(':id' => $id));
 }
 
+function find_setting_by_name($name) {
+    $sql =
+        "SELECT value " .
+        "FROM settings " .
+        "WHERE name='".$name."'";
+    return find_string_by_sql($sql, array(':id' => $id));
+}
+
 function check_password($v) {
     $r = find_string_by_sql("SELECT value FROM `settings` WHERE name='password'");
     if($v == $r) {

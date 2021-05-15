@@ -35,5 +35,5 @@ function make_timezone_obj($params, $obj = null) {
 }
 
 function timezone_columns() {
-    return array('name', 'start', 'end', 'created_at', 'updated_at');
+    return array('name', 'start', 'end', 'weekdays', 'created_at', 'updated_at');
 }

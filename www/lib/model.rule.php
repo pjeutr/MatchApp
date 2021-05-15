@@ -1,8 +1,7 @@
 <?php
 
 function find_rules() { 
-    $sql =
-        "SELECT " .
+    $sql = "SELECT " .
         "b.id as id, b.name as name, b.group_id as group_id, b.door_id as door_id, b.timezone_id as timezone_id, " .
         "g.name as group_name, d.name as door_name, t.name as timezone_name " .
         "FROM rules b " .
@@ -12,13 +11,18 @@ function find_rules() {
     return find_objects_by_sql($sql);
 }
 
-function find_rules2() {
-    return find_objects_by_sql("SELECT * FROM `rules`");
+function find_timezone_by_group_id($group_id, $door_id) {
+    $sql = "SELECT " .
+        "t.end end, t.start start, t.name name " .
+        "FROM rules r, timezones t " .
+        "WHERE r.group_id=:group_id ".
+        "AND r.door_id=:door_id ".
+        "AND r.timezone_id=t.id ";
+    return find_object_by_sql($sql, array(':group_id' => $group_id, ':door_id' => $door_id));
 }
 
 function find_rule_by_id($id) {
-    $sql =
-        "SELECT * " .
+    $sql = "SELECT * " .
         "FROM rules " .
         "WHERE id=:id";
     return find_object_by_sql($sql, array(':id' => $id));

@@ -20,14 +20,14 @@ set('title', 'Reports');
                                 <th>Time</th>
                             </thead>
                             <tbody>
-<?php foreach (array_reverse($reports) as $row) { ?>
-<tr>
-    <td><?= $row->id ?></td>
-    <td><?= $row->user ?></td>
-    <td><?= $row->door ?></td>
-    <td><?= $row->created_at ?></td>
-</tr>
-<?php } ?>
+                            <?php foreach (array_reverse($reports) as $row) { ?>
+                            <tr>
+                                <td><?= $row->id ?></td>
+                                <td><?= $row->user ?></td>
+                                <td><?= $row->door ?></td>
+                                <td><?= print_date($row->created_at) ?></td>
+                            </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>

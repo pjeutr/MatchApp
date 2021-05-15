@@ -28,7 +28,7 @@ function report_csv() {
 
     $dbh = option('db_conn');
     $sth = $dbh->prepare(
-        "SELECT id,door,user,updated_at,created_at FROM reports LIMIT 200"
+        "SELECT id,user,door,created_at FROM reports LIMIT 200"
     );
     //because we don't want to duplicate the data for each row
     // PDO::FETCH_NUM could also have been used
@@ -36,7 +36,7 @@ function report_csv() {
     $sth->execute();
 
     $filename = "reports_".date("Y-m-d_H:i:s");
-    $columns = ["id","door","user","updated_at","created_at"];
+    $columns = ["id","user","door","created_at"];
     $csv->insertAll($sth);
     $csv->output(
         //to get output in browser escape the next line/filename

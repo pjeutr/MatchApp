@@ -117,9 +117,11 @@ dispatch_put   ('settings/:id', 'settings_update');
 dispatch_get   ('last_reports',   'last_reports');
 dispatch_get   ('last_scanned_key.json',   'last_scanned_key');
 
-// doors controller
-dispatch_put   ('controller/:id', 'switch_update');
+// controllers controller
+dispatch_get   ('controller/:id/input/:input/', 'controller_input');
+dispatch_put   ('controller/:id', 'input_update');
 
+// doors controller
 dispatch_get   ('doors',          'doors_index');
 dispatch_post  ('doors',          'doors_create');
 dispatch_get   ('doors/new',      'doors_new');

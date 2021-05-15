@@ -57,6 +57,12 @@ $().ready(function() {
     };
 
 
+    if ($("#timezoneForm").length != 0) {
+        //https://github.com/nikolasmagno/jquery-weekdays
+        console.log("init timezoneForm");
+        timezoneFormInit();
+    };
+
     if ($(".settingsForm").length != 0) {
         console.log("init settingsForm");
         //$("#settingsForm").validate();
@@ -289,12 +295,12 @@ app = {
     },
 
     // Sweet Alerts
-    timerAlert: function(message, time, id) {
+    timerAlert: function(message, time, url) {
         $.ajax({
             //url: endpoint + "?key=" + apiKey + " &q=" + $( this ).text(),
             //contentType: "application/json",
             //dataType: 'json',
-            url: "/?/door/" +id,
+            url: url,
             success: function(result){
                 console.log(result);
             }
@@ -431,3 +437,8 @@ app = {
     }
 
 }
+
+
+
+
+

@@ -2,115 +2,66 @@
 set('id', 0);
 set('title', 'Dashboard');
 
-$door_open = 2 * 1000;
+$door_open = find_setting_by_id(1) * 1000;//2 * 1000;
+$doors = find_doors();
 
-//poll input, push
-$count_reports = 23;
-$count_events = 63;
 ?>
 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="icon-mid text-center icon-warning">
-                                                <i class="nc-icon nc-vector text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            Control output
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <hr>
-                                    <button class="btn btn-info btn-large" type="button" 
-                                        onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, 1)">Open Door 1</button>
-                                    <button class="btn btn-info btn-large" type="button" 
-                                        onclick="app.timerAlert('Door 2 is open', <?= $door_open ?>, 2)">Open Door 2</button>
-                                    <button class="btn btn-warning btn-large" type="button" 
-                                        onclick="app.timerAlert('Alarm 1 is on for 2 seconds', <?= $door_open ?>, 3)">Test Alarm 1</button>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="icon-mid text-center icon-warning">
+                                    <i class="nc-icon nc-vector text-danger"></i>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="icon-mid text-center icon-warning">
-                                                <i class="nc-icon nc-tap-01 text-success"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            View input 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <hr>
-                                        <button class="btn btn-warning btn-large" type="button">Reader 1</button>
-                                        <button class="btn btn-warning btn-large" type="button">Reader 2</button>
-                                        <button class="btn btn-warning btn-large" type="button">Monitor 1</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="icon-big text-center icon-warning">
-                                                <i class="nc-icon nc-tag-content text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            <div class="numbers">
-                                                <p class="card-category">Door counter</p>
-                                                <h4 class="card-title"><?= $count_reports ?></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> In the last hour
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="icon-big text-center icon-warning">
-                                                <i class="nc-icon nc-tv-2 text-primary"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            <div class="numbers">
-                                                <p class="card-category">Reader usage</p>
-                                                <h4 class="card-title"><?= $count_events ?></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-refresh"></i> Today
-                                    </div>
-                                </div>
+                            <div class="col-7">
+                                Master Controller
                             </div>
                         </div>
                     </div>
-       <div class="row">
+                    <div class="card-footer ">
+                        <hr>
+                        <?php foreach ($doors as $row) {  ?>
+                        <button class="btn btn-info btn-large" type="button" 
+                            onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/door/<?= $row->id ?>')"><?= $row->name ?></button>
+                        <?php } ?>
+                        <!-- <hr>
+                            <button class="btn btn-warning btn-small" type="button">Door sensor 1</button>
+                            <button class="btn btn-warning btn-small" type="button">Door sensor 2</button>
+                             -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="icon-mid text-center icon-warning">
+                                    <i class="nc-icon nc-vector text-danger"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                Second Controller
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <hr>
+                        <button class="btn btn-info btn-large" type="button" 
+                            onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/controller/2/input/6')">Open Door 1</button>
+                        <a class="btn btn-info btn-large" 
+                            href="http://maasland/?/controller/2/input/6">Open Door 2</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">

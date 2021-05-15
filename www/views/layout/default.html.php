@@ -17,6 +17,11 @@ if(! isset($id)) {
 
 //TODO get timezone from settings in db
 date_default_timezone_set('Europe/Amsterdam');
+
+//Calculate time for js clock
+$serverTime =  time() * 1000;
+$timezone = date('O'); //+0200
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +40,18 @@ date_default_timezone_set('Europe/Amsterdam');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="/assets/css/light-bootstrap-dashboard.css?v=2.0.1a" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/css/app.css?4" rel="stylesheet" />
+    <link href="/assets/css/app.css?5" rel="stylesheet" />
+    <script type="text/javascript">
+        //calculate clock with php server time
+        var serverTime = <?php echo $serverTime;?>,
+            timezone = "<?php echo $timezone;?>",
+            timeDiff = serverTime - Date.now();
+
+        setInterval(function () {
+          serverClock.innerHTML= moment().add(timeDiff).zone(timezone).format('DD-MM-Y H:mm:ss');
+        }, 1000);
+
+    </script>    
 </head>
 
 <body>
@@ -90,12 +106,6 @@ date_default_timezone_set('Europe/Amsterdam');
                             <p>Reports</p>
                         </a>
                     </li>
-                    <li <?php echo ($id == 6) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
-                        <a class="nav-link" href="./?/events">
-                            <i class="nc-icon nc-notes"></i>
-                            <p>Events</p>
-                        </a>
-                    </li>
                     <li <?php echo ($id == 7) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/settings">
                             <i class="nc-icon nc-settings-90"></i>
@@ -103,6 +113,12 @@ date_default_timezone_set('Europe/Amsterdam');
                         </a>
                     </li>
                     <hr>
+                    <li <?php echo ($id == 6) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
+                        <a class="nav-link" href="./?/events">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Events</p>
+                        </a>
+                    </li>
                     <li <?php echo ($id == 10) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/gpio">
                             <i class="nc-icon nc-settings-gear-64"></i>
@@ -123,7 +139,7 @@ date_default_timezone_set('Europe/Amsterdam');
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    MatchApp v0.3
+                    MatchApp v0.4
                 </div>
             </div>
         </div>
@@ -151,7 +167,7 @@ date_default_timezone_set('Europe/Amsterdam');
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navigation">
                         <ul class="nav navbar-nav ml-auto">
-                            <sub><?= date("Y-m-d H:i:s");?></sub>
+                            <sub><div id="serverClock"><?= date("d-m-Y H:i:s");?></div></sub>
                         </ul> 
                         <ul class="nav navbar-nav ml-auto">
                             <!--
@@ -240,7 +256,7 @@ date_default_timezone_set('Europe/Amsterdam');
 <script src="/assets/js/plugins/nouislider.js" type="text/javascript"></script>
 <!--  Bootstrap Select  -->
 <script src="/assets/js/plugins/bootstrap-selectpicker.js" type="text/javascript"></script>
-<!--  jQueryValidate  -->
+<!--  jQueryValidate https://jqueryvalidation.org  -->
 <script src="/assets/js/plugins/jquery.validate.min.js" type="text/javascript"></script>
 <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
 <script src="/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
@@ -250,13 +266,15 @@ date_default_timezone_set('Europe/Amsterdam');
 <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
 <!--  Full Calendar   -->
 <script src="/assets/js/plugins/fullcalendar.min.js"></script>
+<!--  JQuery Plugin: WeekDays https://www.jqueryscript.net/time-clock/inline-week-day-picker.html -->
+<script src="/assets/js/plugins/jquery-weekdays.js"></script>
 <!--  Hide Password  -->
 <script src="/assets/js/plugins/bootstrap-show-password.min.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/assets/js/light-bootstrap-dashboard.js?v=2.0.1" type="text/javascript"></script>
 <script src="/assets/js/app.js?2"></script>
 <script type="text/javascript">
-    <?= isset($message) ? 'swal('.$message.');' : "" ?>
+    <?= isset($message) ? 'swal( '.$message.');' : "" ?>
 </script>
 </html>
 

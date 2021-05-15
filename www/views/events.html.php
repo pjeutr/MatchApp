@@ -24,7 +24,7 @@ set('title', 'Events');
     <td><?= $row->nr ?></td>
     <td><?= $row->reader ?></td>
     <td><?= $row->keycode ?></td>
-    <td><?= $row->created_at ?></td>
+    <td><?= print_date($row->created_at) ?></td>
 </tr>
 <?php } ?>
                             </tbody>

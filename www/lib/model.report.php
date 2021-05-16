@@ -12,6 +12,11 @@ function find_report_by_id($id) {
     return find_object_by_sql($sql, array(':id' => $id));
 }
 
+function get_last_scanned_key() {
+    //if a unkown key is scanned. It will be written to user in reports
+    return find_string_by_sql("SELECT user FROM reports ORDER BY id DESC LIMIT 1"); 
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 function update_report_obj($report_obj) {

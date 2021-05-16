@@ -18,7 +18,7 @@ function find_setting_by_name($name) {
         "SELECT value " .
         "FROM settings " .
         "WHERE name='".$name."'";
-    return find_string_by_sql($sql, array(':id' => $id));
+    return find_string_by_sql($sql, array(':name' => $name));
 }
 
 function check_password($v) {

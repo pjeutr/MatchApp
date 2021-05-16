@@ -84,9 +84,20 @@ function checkAndHandleSensor($gpio, $id, $controller_id) {
 }
 
 function handleUserAccess($user, $reader_id) {
-    //APB, if the user is back within APB time, don't give access
-    $lastSeen = new DateTime($user->last_seen, new DateTimeZone('Europe/Amsterdam'));
+
+    //Check maximum visits for user 
+    if(!empty($user->max_visits) && $user->visit_count > $user->max_visits) {
+        return "Maximum visits reached:  visits = ".$user->max_visits;
+    }
+    //Check end date for user 
     $now = new DateTime();
+    $endDate = new DateTime($user->end_date);
+    if($now > $endDate) {
+        return "Access has expired: End date = ".$user->end_date;
+    }
+
+    //APB, if the user is back within APB time, deny access
+    $lastSeen = new DateTime($user->last_seen, new DateTimeZone('Europe/Amsterdam'));
     $diff =  $now->getTimestamp() - $lastSeen->getTimestamp();
     $apb = find_setting_by_name('apb'); //apb is defined in seconds
     mylog("lastseen=".$lastSeen->format("c")." now=".$now->format("c")." diff=".$diff." seconds\n");
@@ -94,12 +105,11 @@ function handleUserAccess($user, $reader_id) {
         return "APB restriction: no access within ".$diff." seconds, must be longer than ".$apb." seconds";
     }
 
-    //update last_seen en visit_count
-    update_user_statistics($user);
 
+    //Determin what door to open
     $door = find_door_for_reader_id($reader_id, 1);
 
-    //check if the group/user has access
+    //check if the group/user has access for this door
     $tz = find_timezone_by_group_id($user->group_id, $door->id);
     mylog("group=".$user->group_id." door=".$door->id."=".$door->name."\n");
     mylog("name=".$tz->name." start=".$tz->start." end=".$tz->end."\n");
@@ -115,18 +125,53 @@ function handleUserAccess($user, $reader_id) {
     //check if it is the right time
     $begin = new DateTime($tz->start);
     $end = new DateTime($tz->end);
-
     if ($now < $begin || $now > $end) {
         return "Time of the day restriction: ".$now->format('H:m')." is not between ".$tz->start." and ".$tz->end;
     }
-
-    //TODO check door and timezone, from access record
-    $msg = "Opened ". $door->name. " with Reader ".$reader_id;
+    
+    //update last_seen en visit_count
+    update_user_statistics($user);
 
     //open the door 
     openDoor($door->id, $reader_id);
-    
+    $msg = "Opened ". $door->name. " with Reader ".$reader_id;
+
     return $msg;    
+}
+
+/*
+*   Open a door 
+*   $door_id : id in the db
+*   $reader_id : 0=No reader. 1 or 2 to determine which green led
+*   Used by match_listener and webinterface
+*/
+function openDoor($door_id, $reader_id) {
+    //Read settings
+    $doorOpen=find_setting_by_name("door_open");
+    $soundBuzzer=find_setting_by_name("sound_buzzer");
+    //mylog("openDoor ".$doorOpen."=".$soundBuzzer."\t");
+    
+    //Also use the green led on the the reader, to give user feedback
+    $gled = 0;
+    if($reader_id == 1) {
+        $gled = GVAR::$RD1_GLED_PIN;
+    }
+    if($reader_id == 2) {
+        $gled = GVAR::$RD2_GLED_PIN;
+    }
+
+    mylog("Open Door ".$door_id." reader=".$reader_id." LED=".$gled." sound_buzzer=".$soundBuzzer." door_open=".$doorOpen."\n");
+    //open lock
+    openLock($door_id, 1);
+    //turn on led and buzzer
+    if($gled) setGPIO($gled, 1);
+    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 1);
+    //wait some time. close lock
+    sleep($doorOpen);
+    //turn off led and buzzer
+    if($gled) setGPIO($gled, 0);
+    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 0);
+    return openLock($door_id, 0);
 }
 
 /*
@@ -146,7 +191,7 @@ function openLock($door_id, $open) {
     }
     //
     $currentValue = shell_exec("cat /sys/class/gpio/gpio".$gid."/value");
-    mylog("openLock ".$currentValue."=".$open."\n");
+    //mylog("openLock ".$currentValue."=".$open."\n");
     if($currentValue != $open) {
         //mylog("STATE CHANGED=".$open);
         setGPIO($gid, $open);
@@ -156,35 +201,6 @@ function openLock($door_id, $open) {
     return false;
 }
 
-function openDoor($door_id, $reader_id) {
-    //Read settings
-    $doorOpen=find_setting_by_name("door_open");
-    $soundBuzzer=find_setting_by_name("sound_buzzer");
-    mylog("openDoor ".$doorOpen."=".$soundBuzzer."\t");
-    
-    //Also use the green led on the the reader, to give user feedback
-    $gled = 0;
-    if($reader_id == 1) {
-        $gled = GVAR::$RD1_GLED_PIN;
-    }
-    if($reader_id == 2) {
-        $gled = GVAR::$RD2_GLED_PIN;
-    }
-
-    mylog("Open Door GPIO=".$gid." reader=".$reader_id." LED=".$gled." sound_buzzer=".$soundBuzzer." door_open=".$doorOpen."\n");
-    //open lock
-    openLock($door_id, 1);
-    //turn on led and buzzer
-    if($gled) setGPIO($gled, 1);
-    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 1);
-    //wait some time. close lock
-    sleep($doorOpen);
-    //turn off led and buzzer
-    if($gled) setGPIO($gled, 0);
-    if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 0);
-    return openLock($door_id, 0);
-}
-
 function setGPIO($gid, $state) {
     mylog("setGPIO ".$gid."=".$state."\t");
     if(! file_exists("/sys/class/gpio/gpio".$gid)) {
@@ -192,17 +208,6 @@ function setGPIO($gid, $state) {
         shell_exec("echo ".$gid." > /sys/class/gpio/export");
         shell_exec("echo out >/sys/class/gpio/gpio".$gid."/direction");
     }
-//led 40 & 45
-//1 = off, 0 = on
-//$gpio_on = shell_exec('gpio write 1 1');
-// echo 40 > /sys/class/gpio/export
-// echo out >/sys/class/gpio/gpio40/direction
-// echo 1 >/sys/class/gpio/gpio40/value
-//switch 90 & 92 not working propably needs a 4.7K pull-down resistor?
-// cat /sys/class/gpio/gpio90/active_low    
-// echo both > /sys/class/gpio/gpio90/edge
-// rising / falling / both / none
-
     shell_exec("echo ".$state." >/sys/class/gpio/gpio".$gid."/value");
     
     return 1;    

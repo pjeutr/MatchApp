@@ -27,7 +27,7 @@ $doors = find_doors();
                     <div class="card-footer ">
                         <hr>
                         <?php foreach ($doors as $row) {  ?>
-                        <button class="btn btn-info btn-large" type="button" 
+                        <button class="btn btn-info btn-block" type="button" 
                             onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/door/<?= $row->id ?>')"><?= $row->name ?></button>
                         <?php } ?>
                         <!-- <hr>
@@ -53,9 +53,9 @@ $doors = find_doors();
                     </div>
                     <div class="card-footer ">
                         <hr>
-                        <button class="btn btn-info btn-large" type="button" 
+                        <button class="btn btn-info btn-block" type="button" 
                             onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/controller/2/input/6')">Open Door 1</button>
-                        <a class="btn btn-info btn-large" 
+                        <a class="btn btn-info btn-block" 
                             href="http://maasland/?/controller/2/input/6">Open Door 2</a>
                     </div>
                 </div>

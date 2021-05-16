@@ -29,20 +29,20 @@ $current_contents = "";
 
 while(true) {
 	global $current_contents;
-    $new_contents = file_get_contents($filename);
+    $rawContents = file_get_contents($filename);
+    //dissect the input
+	$content = explode(":",$rawContents);
+	$nr = $content[0];
+	$keycode = $content[1];
+	$reader = $content[2];
+	$raw = $content[3];
 
     //is some button pressed?
     $action = checkAndHandleInputs();
 
-    if (strcmp($new_contents, $current_contents)) {
-		$current_contents = $new_contents;
-		echo "Activity nr:key:reader:raw:switch ".$new_contents;
-
-		$content = explode(":",$new_contents);
-		$nr = $content[0];
-		$keycode = $content[1];
-		$reader = $content[2];
-		$raw = $content[3];
+    if (strcmp($nr, $oldNr)) {
+		$oldNr = $nr;
+		echo "Activity nr:key:reader:raw:switch ".$nr.":".$keycode.":".$reader."\n";
 
 		$actor = $keycode;
 		$action = "Reader ".$reader;

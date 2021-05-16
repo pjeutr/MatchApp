@@ -18,6 +18,7 @@ set('title', 'Timezones');
                                 <th>Name</th>
                                 <th>Start</th>
                                 <th>End</th>
+                                <th>Weekdays</th>
                             </thead>
                             <tbody>
 <?php foreach ($timezones as $row) { ?>
@@ -26,6 +27,7 @@ set('title', 'Timezones');
     <td><?= $row->name ?></td>
     <td><?= $row->start //date("H:i", $row->start) ?></td>
     <td><?= $row->end //date("H:i", $row->end) ?></td>
+    <td><?= $row->weekdays ?></td>
     <!-- <td><?= link_to($row->name, 'timezones', $row->id) ?></td> -->
     <td><?= iconLink_to("Edit", 'timezones/'.$row->id.'/edit', 'btn-link', null) ?>
         &nbsp;

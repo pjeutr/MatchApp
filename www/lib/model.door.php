@@ -56,7 +56,7 @@ function make_door_obj($params, $obj = null) {
 }
 
 function door_columns() {
-    return array('name');
+    return array('name','timezone_id');
 }
 
 

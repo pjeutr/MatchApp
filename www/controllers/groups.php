@@ -60,7 +60,7 @@ function groups_destroy() {
 # PUT /grules/:id
 function grules_update() {
     $rule_data = rule_data_from_form2();
-    $rule = get_rule_or_404();
+    $rule = get_grule_or_404();
     $rule = make_rule_obj($rule_data, $rule);
 
     update_rule_obj($rule);
@@ -87,6 +87,14 @@ function grules_destroy() {
     delete_rule_by_id(filter_var(params('id'), FILTER_VALIDATE_INT));
     redirect('groups');
 }
+function get_grule_or_404() {
+    $rule = find_rule_by_id(filter_var(params('id'), FILTER_VALIDATE_INT));
+    if (is_null($rule)) {
+        halt(NOT_FOUND, "This rule doesn't exist.");
+    }
+    return $rule;
+}
+
 function get_group_or_404() {
     $group = find_group_by_id(filter_var(params('id'), FILTER_VALIDATE_INT));
     if (is_null($group)) {
@@ -94,7 +102,6 @@ function get_group_or_404() {
     }
     return $group;
 }
-
 function rule_data_from_form2() {
     return isset($_POST['rule']) && is_array($_POST['rule']) ? $_POST['rule'] : array();
 }

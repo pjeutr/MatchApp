@@ -1,3 +1,4 @@
+#!/usr//bin/php
 <?php
 
 require_once '/maasland_app/www/lib/limonade.php';;

@@ -28,7 +28,7 @@ function report_csv() {
 
     $dbh = option('db_conn');
     $sth = $dbh->prepare(
-        "SELECT id,user,door,created_at FROM reports LIMIT 200"
+        "SELECT id,user,door,created_at FROM reports LIMIT 500"
     );
     //because we don't want to duplicate the data for each row
     // PDO::FETCH_NUM could also have been used

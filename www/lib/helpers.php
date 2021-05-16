@@ -1,4 +1,6 @@
 <?php
+//TODO get timezone from settings in db
+date_default_timezone_set('Europe/Amsterdam');
 
 //Custom log
 function mylog($message) {

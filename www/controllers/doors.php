@@ -19,7 +19,7 @@ function doors_show() {
 function doors_edit() {
     $door = get_door_or_404();
     set('door', $door);
-    //set('authors', find_authors());
+    set('timezones', find_timezones());
     return html('doors/edit.html.php');
 }
 
@@ -37,7 +37,7 @@ function doors_update() {
 function doors_new() {
     $door_data = make_empty_obj(door_columns());
     set('door', make_door_obj($door_data));
-    //set('authors', find_authors());
+    set('timezones', find_timezones());
     return html('doors/new.html.php');
 }
 

@@ -83,13 +83,13 @@ function checkAndHandleSensor($gpio, $id, $controller_id) {
     }
 }
 
-function handleUserAccess($user, $reader) {
+function handleUserAccess($user, $reader_id) {
     //APB, if the user is back within APB time, don't give access
-    $lastSeen = new DateTime($user->last_seen);
+    $lastSeen = new DateTime($user->last_seen, new DateTimeZone('Europe/Amsterdam'));
     $now = new DateTime();
     $diff =  $now->getTimestamp() - $lastSeen->getTimestamp();
     $apb = find_setting_by_name('apb'); //apb is defined in seconds
-    mylog("lastseen=".$user->last_seen." ago=".$diff."\n");
+    mylog("lastseen=".$lastSeen->format("c")." now=".$now->format("c")." diff=".$diff." seconds\n");
     if($diff < $apb) {
         return "APB restriction: no access within ".$diff." seconds, must be longer than ".$apb." seconds";
     }
@@ -97,63 +97,83 @@ function handleUserAccess($user, $reader) {
     //update last_seen en visit_count
     update_user_statistics($user);
 
-    $door = find_door_for_reader_id($reader,1);
+    $door = find_door_for_reader_id($reader_id, 1);
 
     //check if the group/user has access
     $tz = find_timezone_by_group_id($user->group_id, $door->id);
+    mylog("group=".$user->group_id." door=".$door->id."=".$door->name."\n");
     mylog("name=".$tz->name." start=".$tz->start." end=".$tz->end."\n");
 
+    //check if it is the right day of the week
+    $weekday = $now->format('w');//0 (for Sunday) through 6 (for Saturday) 
+    $weekdays = explode(",",$tz->weekdays);
+    mylog("weekday=".$weekday."=".$tz->weekdays."\n");
+    if(! in_array($weekday, $weekdays)) {
+        return "Day of the week restriction: ".$weekday." is not in ".$tz->weekdays." ";
+    }
+
+    //check if it is the right time
+    $begin = new DateTime($tz->start);
+    $end = new DateTime($tz->end);
+
+    if ($now < $begin || $now > $end) {
+        return "Time of the day restriction: ".$now->format('H:m')." is not between ".$tz->start." and ".$tz->end;
+    }
+
     //TODO check door and timezone, from access record
-    $msg = "Opened ". $door->name. " with Reader ".$reader;
+    $msg = "Opened ". $door->name. " with Reader ".$reader_id;
 
     //open the door 
-    openDoor($reader);
+    openDoor($door->id, $reader_id);
     
     return $msg;    
 }
 
 /*
-
-door1
-Reader1 Reader2
-Switch1 Switch2 REX (Request to Exit).
-
--Tijdelijke Pincodes, geldigheid op tijd/datum of aantal keer
--export in csv, voor reports
--signalering wat mee doen
-
-15. tijdsprofielen - risico dat een relais niet urenlang kan blijven ingeschakeld (specs opzoeken)
-25. APB houdt in Anti-passback. Dus het doorgeven van een toegangspas aan een ander. Is wel meer van op internet te vinden als dit nog niet duidelijk is.
-33. Volledig naar fabrieksinstelling te zetten met drukknop op print plaat (MH)
-Heb ik in het begin met Wang over gehad, maar heb ik niks meer over gehoord. Zal nog eens navragen. Zit al PCB
-
+*   Open a lock given a door_id 
+*   $door_id : id in the db
+*   $open : 1=open, 0=close
+*   returns true if state was changed
 */
-
-function openDoor($reader) {
-    //Read settings
-    $doorOpen=find_setting_by_id(1);
-    $soundBuzzer=find_setting_by_id(2);
-    //$doorOpen=GVAR::$DOOR_TIMER;
-    //determine which reader is used, so we can select the proper led
-    $gled = 0;
+function openLock($door_id, $open) { 
     $gid = 0;
-
-    //determine the right door, assume reader1=door1, reader2=door2
-    //TODO config reader2 to also open door 1?
-    if($reader == 1) {
-        $gled = GVAR::$RD1_GLED_PIN;
+    //asign proper gpio's used for the door or Alarm
+    if($door_id == 1) {
         $gid = GVAR::$GPIO_DOOR1;
     }
-    if($reader == 2) {
-        $gled = GVAR::$RD2_GLED_PIN;
+    if($door_id == 2) {
         $gid = GVAR::$GPIO_DOOR2;
     }
-    if($reader == 3) {
-        $gid = GVAR::$GPIO_ALARM1;
+    //
+    $currentValue = shell_exec("cat /sys/class/gpio/gpio".$gid."/value");
+    mylog("openLock ".$currentValue."=".$open."\n");
+    if($currentValue != $open) {
+        //mylog("STATE CHANGED=".$open);
+        setGPIO($gid, $open);
+        return true;
     }
-    mylog("Open Door GPIO=".$gid." reader=".$reader." LED=".$gled." sound_buzzer=".$soundBuzzer." door_open=".$doorOpen."\n");
+    //TODO open locks on other controllers
+    return false;
+}
+
+function openDoor($door_id, $reader_id) {
+    //Read settings
+    $doorOpen=find_setting_by_name("door_open");
+    $soundBuzzer=find_setting_by_name("sound_buzzer");
+    mylog("openDoor ".$doorOpen."=".$soundBuzzer."\t");
+    
+    //Also use the green led on the the reader, to give user feedback
+    $gled = 0;
+    if($reader_id == 1) {
+        $gled = GVAR::$RD1_GLED_PIN;
+    }
+    if($reader_id == 2) {
+        $gled = GVAR::$RD2_GLED_PIN;
+    }
+
+    mylog("Open Door GPIO=".$gid." reader=".$reader_id." LED=".$gled." sound_buzzer=".$soundBuzzer." door_open=".$doorOpen."\n");
     //open lock
-    setGPIO($gid, 1);
+    openLock($door_id, 1);
     //turn on led and buzzer
     if($gled) setGPIO($gled, 1);
     if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 1);
@@ -162,7 +182,7 @@ function openDoor($reader) {
     //turn off led and buzzer
     if($gled) setGPIO($gled, 0);
     if($soundBuzzer) setGPIO(GVAR::$BUZZER_PIN, 0);
-    return setGPIO($gid, 0);
+    return openLock($door_id, 0);
 }
 
 function setGPIO($gid, $state) {

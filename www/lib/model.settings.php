@@ -9,6 +9,7 @@ function find_setting_by_id($id) {
         "SELECT value " .
         "FROM settings " .
         "WHERE id=".$id;
+        //"WHERE id=:id"; werkt niet?
     return find_string_by_sql($sql, array(':id' => $id));
 }
 

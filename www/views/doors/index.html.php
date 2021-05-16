@@ -27,11 +27,9 @@ $controller = $controllers[0];
                                 <div class="col-sm-4 custom-header">
                                     <div class="float-left">
                                         <?= $row->name ?>
-<!--                                         <?= $row->reader_1 ?>-<?= $row->reader_2 ?>_
-                                        <?= $row->button_1 ?>-<?= $row->button_2 ?> -->
                                     </div>
                                     <div class="float-right">
-                                        <?= iconLink_to("Change name", 'doors/'.$row->id.'/edit', 'btn-link text-success', null) ?>
+                                        <?= iconLink_to("Change", 'doors/'.$row->id.'/edit', 'btn-link text-success', null) ?>
                                     </div>
                                 </div>
                                 <?php } ?>

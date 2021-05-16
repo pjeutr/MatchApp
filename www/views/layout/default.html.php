@@ -15,9 +15,6 @@ if(! isset($id)) {
     $id = 2;
 }
 
-//TODO get timezone from settings in db
-date_default_timezone_set('Europe/Amsterdam');
-
 //Calculate time for js clock
 $serverTime =  time() * 1000;
 $timezone = date('O'); //+0200

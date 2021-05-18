@@ -110,12 +110,6 @@ $timezone = date('O'); //+0200
                         </a>
                     </li>
                     <hr>
-                    <li <?php echo ($id == 6) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
-                        <a class="nav-link" href="./?/events">
-                            <i class="nc-icon nc-notes"></i>
-                            <p>Events</p>
-                        </a>
-                    </li>
                     <li <?php echo ($id == 10) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/gpio">
                             <i class="nc-icon nc-settings-gear-64"></i>
@@ -126,12 +120,6 @@ $timezone = date('O'); //+0200
                         <a class="nav-link" href="/admin/phpliteadmin.php">
                             <i class="nc-icon nc-settings-tool-66"></i>
                             <p>DB</p>
-                        </a>
-                    </li>
-                    <li <?php echo ($id == 12) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
-                        <a class="nav-link" href="./?/main">
-                            <i class="nc-icon nc-alien-33"></i>
-                            <p>test</p>
                         </a>
                     </li>
                 </ul>

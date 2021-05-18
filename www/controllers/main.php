@@ -8,10 +8,6 @@ use League\Csv\Reader;
 function main_page() {
     return html('main.html.php');
 }
-function event_index() {
-    set('events', find_events());
-    return html('events.html.php');
-}
 function report_index() {
     set('reports', find_reports());
     return html('reports.html.php');

@@ -21,9 +21,16 @@ option('dsn', $dsn);
 option('db_conn', $db);
 option('debug', true);
 
+$now = new DateTime();
 $actor = "Cron"; 
-$action = "Cron ";
+$action = "Systemcheck ";
 //find door->timezone_id fields	 
+
+//check if everything is alive
+if($now->format('H:i') == "2:00") { //every night at 2
+	//check if listener still running?
+	saveReport($actor, $action);
+}
 
 $doors = find_doors();
 foreach ($doors as $door) {
@@ -32,7 +39,6 @@ foreach ($doors as $door) {
 		$tz = find_timezone_by_id($door->timezone_id);
 
 	    //check if it is the right day of the week
-	    $now = new DateTime();
 	    $weekday = $now->format('w');//0 (for Sunday) through 6 (for Saturday) 
 	    $weekdays = explode(",",$tz->weekdays);
 	    mylog("weekday=".$weekday."=".$tz->weekdays."\n");

@@ -95,11 +95,9 @@ function dashboard_page() {
 }
 dispatch('reports', 'report_index');
 dispatch('reports_csv', 'report_csv');
-dispatch('events', 'event_index');
 
 //TODO remove testpages
 //dispatch('info', phpinfo());
-dispatch('main', 'main_page');
 dispatch('gpio', 'gpio_page');
 function gpio_page() {
     return html('gpio.html.php');

@@ -45,7 +45,8 @@ function users_new() {
 function users_create() {
     $user_data = user_data_from_form();
     $user = make_user_obj($user_data);
-
+    //visit_count can not be empty, if we want to use autoincrement
+    $user->visit_count=0;
     create_user_obj($user);
     redirect('users');
 }

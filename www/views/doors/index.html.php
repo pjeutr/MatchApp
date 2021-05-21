@@ -26,7 +26,7 @@ $controller = $controllers[0];
                                 ?>
                                 <div class="col-sm-4 custom-header">
                                     <div class="float-left">
-                                        <?= $row->name ?>
+                                        <?= $row->name ?> <?= $row->timezone_id ?>
                                     </div>
                                     <div class="float-right">
                                         <?= iconLink_to("Change", 'doors/'.$row->id.'/edit', 'btn-link text-success', null) ?>

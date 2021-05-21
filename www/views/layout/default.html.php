@@ -152,7 +152,7 @@ $timezone = date('O'); //+0200
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navigation">
                         <ul class="nav navbar-nav ml-auto">
-                            <sub><div id="serverClock"><?= date("d-m-Y H:i:s");?></div></sub>
+                            <sub><div id="serverClock"><?= date("d-m-Y H:i:s");?> - <?= $timezone;?></div></sub>
                         </ul> 
                         <ul class="nav navbar-nav ml-auto">
                             <!--
@@ -192,17 +192,17 @@ $timezone = date('O'); //+0200
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.maaslandgroep.nl/contact" target="_blank">
+                                <a href="https://maaslandserver.com/flexessduo/contact" target="_blank">
                                     Contact
                                 </a>
                             </li>
                             <li>
-                                <a href="https://maaslandserver.com/" target="_blank">
+                                <a href="https://maaslandserver.com/flexessduo/faq" target="_blank">
                                     Faq
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.maaslandgroep.nl/nieuws" target="_blank">
+                                <a href="https://maaslandserver.com/flexessduo/blog" target="_blank">
                                     Blog
                                 </a>
                             </li>

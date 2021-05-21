@@ -27,8 +27,8 @@ $doors = find_doors();
                     <div class="card-footer ">
                         <hr>
                         <?php foreach ($doors as $row) {  ?>
-                        <button class="btn btn-info btn-block" type="button" 
-                            onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/door/<?= $row->id ?>')"><?= $row->name ?></button>
+                        <button class="btn btn-<?= getGPIO(getDoorGPIO($row->id)) == 1 ? "success" : "info" ?> btn-block" type="button" 
+                            onclick="app.timerAlert('Door 1 is open', <?= $door_open ?>, '/?/door/<?= $row->id ?>')"><?= $row->name ?> <?= getGPIO(getDoorGPIO($row->id)) == 1 ? " is open" : "" ?></button>
                         <?php } ?>
                         <!-- <hr>
                             <button class="btn btn-warning btn-small" type="button">Door sensor 1</button>
@@ -65,7 +65,7 @@ $doors = find_doors();
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Maasland controller</h4>
+                        <h4 class="card-title">Maasland - Flexess Duo</h4>
                     </div>
                     <div class="card-body">
                                 This controller has

@@ -196,16 +196,8 @@ function openDoor($door_id, $reader_id) {
 *   returns true if state was changed
 */
 function openLock($door_id, $open) { 
-    $gid = 0;
-    //asign proper gpio's used for the door or Alarm
-    if($door_id == 1) {
-        $gid = GVAR::$GPIO_DOOR1;
-    }
-    if($door_id == 2) {
-        $gid = GVAR::$GPIO_DOOR2;
-    }
-    //
-    $currentValue = shell_exec("cat /sys/class/gpio/gpio".$gid."/value");
+    $gid = getDoorGPIO($door_id);
+    $currentValue = getGPIO($gid);
     //mylog("openLock ".$currentValue."=".$open."\n");
     if($currentValue != $open) {
         //mylog("STATE CHANGED=".$open);
@@ -214,6 +206,15 @@ function openLock($door_id, $open) {
     }
     //TODO open locks on other controllers
     return false;
+}
+
+/*
+*   Shorthands methods
+*/
+function getDoorGPIO($door_id) { 
+    if($door_id == 1) return GVAR::$GPIO_DOOR1;
+    if($door_id == 2) return GVAR::$GPIO_DOOR2;
+    return 0;
 }
 
 function setGPIO($gid, $state) {

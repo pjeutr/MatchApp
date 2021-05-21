@@ -28,13 +28,21 @@ $action = "Systemcheck ";
 
 //check if everything is alive
 //if($now->format('H:i') == "2:00") { //every night at 2
-if($now->format('i') == 05) { //every hour
+if($now->format('i') == 45) { //every hour
 
-	exec("ps -o pid,user,comm,stat | grep -i 'match_listener' | grep -v grep", $pids);
+	exec("ps -o pid,user,comm,stat,args | grep -i 'match_listener' | grep -v grep", $pids);
+	// D Uninterruptible sleep (usually IO)
+	// R Running or runnable (on run queue)
+	// S Interruptible sleep (waiting for an event to complete)
+	// T Stopped, either by a job control signal or because it is being traced.
+	// W paging (not valid since the 2.6.xx kernel)
+	// X dead (should never be seen)
+	// Z Defunct ("zombie") process, terminated but not reaped by its parent.
+
 	if(empty($pids)) {
 		$action = "match_listener not running!";
 	} else {
-	    $action = "Systemcheck, match_listener OK. pids=".join(',', $pids);
+	    $action = "Systemcheck, match_listener OK. ".count($pids)." pids:".join(',', $pids);
 	}
 
 	//check if listener still running?

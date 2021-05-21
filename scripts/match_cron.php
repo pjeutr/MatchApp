@@ -27,7 +27,16 @@ $action = "Systemcheck ";
 //find door->timezone_id fields	 
 
 //check if everything is alive
-if($now->format('H:i') == "2:00") { //every night at 2
+//if($now->format('H:i') == "2:00") { //every night at 2
+if($now->format('i') == 05) { //every hour
+
+	exec("ps -o pid,user,comm,stat | grep -i 'match_listener' | grep -v grep", $pids);
+	if(empty($pids)) {
+		$action = "match_listener not running!";
+	} else {
+	    $action = "Systemcheck, match_listener OK. pids=".join(',', $pids);
+	}
+
 	//check if listener still running?
 	saveReport($actor, $action);
 }

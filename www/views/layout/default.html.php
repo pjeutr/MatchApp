@@ -124,7 +124,7 @@ $timezone = date('O'); //+0200
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    MatchApp v0.4
+                    Flexess Duo v0.4.1
                 </div>
             </div>
         </div>

@@ -4,7 +4,8 @@ require_once('lib/limonade.php');
 
 function configure() {
     $env = $_SERVER['HTTP_HOST'] == 'library.dev' ? ENV_DEVELOPMENT : ENV_PRODUCTION;
-    $dsn = $env == ENV_PRODUCTION ? 'sqlite:db/dev.db' : 'sqlite:db/dev.db';
+    $env = ENV_DEVELOPMENT;
+    $dsn = $env == ENV_PRODUCTION ? 'sqlite:db/prod.db' : 'sqlite:db/dev.db';
     $db = new PDO($dsn);
     //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
     $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );

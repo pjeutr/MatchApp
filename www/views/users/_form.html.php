@@ -34,6 +34,11 @@
       </select>    
   </div>
   <div class="form-group">
+    <label>Start date:</label>
+    <input type="text" class="form-control datepicker" name="user[start_date]" id="datetimepicker" value="<?php echo h($user->start_date) ?>" placeholder="Enter a end date"/>
+    <small id="emailHelp" class="form-text text-muted">Before this date the key/code is invalid (empty is for ever)</small>
+  </div>
+  <div class="form-group">
     <label>End date:</label>
     <input type="text" class="form-control datepicker" name="user[end_date]" id="datetimepicker" value="<?php echo h($user->end_date) ?>" placeholder="Enter a end date"/>
     <small id="emailHelp" class="form-text text-muted">After this date the key/code is invalid (empty is for ever)</small>

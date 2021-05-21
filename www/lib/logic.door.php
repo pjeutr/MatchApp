@@ -102,11 +102,13 @@ function handleUserAccess($user, $reader_id) {
     if(!empty($user->max_visits) && $user->visit_count > $user->max_visits) {
         return "Maximum visits reached:  visits = ".$user->max_visits;
     }
-    //Check end date for user 
+    //Check start/end date for user 
     $now = new DateTime();
+    $startDate = new DateTime($user->start_date);
     $endDate = new DateTime($user->end_date);
-    if($now > $endDate) {
-        return "Access has expired: End date = ".$user->end_date;
+    //if($now > $endDate) {
+    if ($now < $startDate || $now > $endDate) {
+        return "Access has expired: Start date = ".$user->start_date." End date = ".$user->end_date;
     }
 
     //APB, if the user is back within APB time, deny access

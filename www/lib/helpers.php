@@ -54,7 +54,7 @@ function link_to($params = null) {
     return "<a href=\"$url\">$name</a>";
 }
 
-function iconLink_to($name, $link, $style, $icon) {
+function iconLink_to($name, $link, $style, $icon = null) {
 	$url = url_for($link);
     $fa = isset($icon) ? "<i class=\"fa $icon\"></i>" : "<i class=\"fa fa-edit\"></i>";
     

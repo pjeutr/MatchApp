@@ -96,6 +96,12 @@ function checkAndHandleSensor($gpio, $id, $controller_id) {
     }
 }
 
+/*
+*   Handle user access by reader
+*   $user : object 
+*   $reader_id : id in the db
+*   Used by match_listener 
+*/
 function handleUserAccess($user, $reader_id) {
 
     //Check maximum visits for user 
@@ -106,7 +112,6 @@ function handleUserAccess($user, $reader_id) {
     $now = new DateTime();
     $startDate = new DateTime($user->start_date);
     $endDate = new DateTime($user->end_date);
-    //if($now > $endDate) {
     if ($now < $startDate || $now > $endDate) {
         return "Access has expired: Start date = ".$user->start_date." End date = ".$user->end_date;
     }
@@ -120,9 +125,13 @@ function handleUserAccess($user, $reader_id) {
         return "APB restriction: no access within ".$diff." seconds, must be longer than ".$apb." seconds";
     }
 
-
-    //Determin what door to open
+    //Determine what door to open
     $door = find_door_for_reader_id($reader_id, 1);
+
+    //Don't open the door if it is scheduled to be open
+    if(checkDoorSchedule($door)) {
+        return "Door is already scheduled to be open: ".$door->name;
+    }
 
     //check if the group/user has access for this door
     $tz = find_timezone_by_group_id($user->group_id, $door->id);
@@ -152,6 +161,32 @@ function handleUserAccess($user, $reader_id) {
     $msg = "Opened ". $door->name. " with Reader ".$reader_id;
 
     return $msg;    
+}
+
+/*
+*   Check if a door is in a Schedule
+*   $door_id : id in the db
+*   Used by match_listener and webinterface
+*/
+function checkDoorSchedule($door) {
+    $tz = find_timezone_by_id($door->timezone_id);
+    mylog("checkDoorSchedule=".$door->timezone_id);
+    if($door->timezone_id) {
+        $now = new DateTime();
+        //check if it is the right day of the week
+        $weekday = $now->format('w');//0 (for Sunday) through 6 (for Saturday) 
+        $weekdays = explode(",",$tz->weekdays);
+        if(in_array($weekday, $weekdays)) {
+            mylog("checkDoorSchedule begin/end");
+            //check if it is the right time
+            $begin = new DateTime($tz->start);
+            $end = new DateTime($tz->end);
+            if ($now >= $begin && $now <= $end) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 /*
@@ -199,6 +234,8 @@ function openLock($door_id, $open) {
     $gid = getDoorGPIO($door_id);
     $currentValue = getGPIO($gid);
     //mylog("openLock ".$currentValue."=".$open."\n");
+
+    //check if lock state has changed
     if($currentValue != $open) {
         //mylog("STATE CHANGED=".$open);
         setGPIO($gid, $open);

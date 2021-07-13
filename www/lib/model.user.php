@@ -22,7 +22,10 @@ function find_user_by_id($id) {
     return find_object_by_sql($sql, array(':id' => $id));
 }
 
-function find_user_by_keycode($keycode) {
+function find_user_by_keycode($key) {
+    //translate key TODO right place?
+    $keycode = keyToHex($key);
+    
     $sql =
         "SELECT " .
         "b.id as id, b.name as name, b.last_seen as last_seen, b.group_id as group_id, " .
@@ -30,8 +33,8 @@ function find_user_by_keycode($keycode) {
         "a.name as group_name, b.remarks as remarks, b.keycode as keycode " .
         "FROM users b " .
         "LEFT JOIN groups a ON a.id=b.group_id " .
-        "WHERE b.keycode=:keycode";   
-    return find_object_by_sql($sql, array(':keycode' => $keycode));
+        "WHERE upper(b.keycode)=:keycode";   
+    return find_object_by_sql($sql, array(':keycode' => strtoupper($keycode)));
 }
 
 function update_user_statistics($user_obj) {

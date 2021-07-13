@@ -124,7 +124,7 @@ $timezone = date('O'); //+0200
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    Flexess Duo v0.4.1
+                    Flexess Duo v0.4.2
                 </div>
             </div>
         </div>

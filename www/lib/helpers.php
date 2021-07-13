@@ -24,21 +24,31 @@ function make_empty_obj($values) {
     return $user_data;
 }
 
+//Typed in code is max 999999
+//if it is bigger, it's a tag and we need to translate to hex value
+function keyToHex($key) {
+    mylog($key." keyToHex\n");
+    if((int)$key > 9999) {
+        mylog($key." convert\n");
+        return strtoupper(dechex((int)$key));
+        //return dec2hex($key);
+    }
+    return $key;
+}
+
 //Save a record to reports db
-function saveReport($user, $msg) {
+function saveReport($user, $msg, $key = "empty") { //empty => null
     //create report entry in log
     mylog($user." ".$msg."\n");
 
     //create report record in db
     $report = make_report_obj([
         "user"  => $user,
+        "keycode"  => $key,
         "door" => $msg
     ]);
     return create_object($report, 'reports', null);
 }
-
-
-
 
 /* 
     View functions 

@@ -15,6 +15,7 @@ set('title', 'Reports');
                         <table class="table  table-hover table-striped">
                             <thead>
                                 <th>ID</th>
+                                <th>Keycode</th>
                                 <th>User</th>
                                 <th>Door</th>  
                                 <th>Time</th>
@@ -23,6 +24,7 @@ set('title', 'Reports');
                             <?php foreach (array_reverse($reports) as $row) { ?>
                             <tr>
                                 <td><?= $row->id ?></td>
+                                <td><?= $row->keycode ?></td>
                                 <td><?= $row->user ?></td>
                                 <td><?= $row->door ?></td>
                                 <td><?= print_date($row->created_at) ?></td>

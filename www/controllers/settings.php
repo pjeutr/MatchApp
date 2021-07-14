@@ -9,7 +9,7 @@ http://vlib.clausvb.de/docs/multihtml/vlibtemplate/tutorial_simple_example.html
 
 */
 define('ISPC_CLASS_PATH', '/maasland_app/www/lib/vlibtemplate');
-require "/maasland_app/www/lib/vlibtemplate/tpl.inc.php";
+require "lib/vlibtemplate/tpl.inc.php";
 
 function settings_index() {
     set('settings', find_settings());

@@ -40,6 +40,28 @@ label.error {
     color:white;
     line-height: 3rem;
 }
+
+.icon-flag-nl{
+  background-image : url(../flags/nl.png);
+  background-size: cover;
+  display: inline-block;
+  height: 11px;
+  width: 16px;
+}
+.icon-flag-fr{
+  background-image : url(../flags/fr.png);
+  background-size: cover;
+  display: inline-block;
+  height: 11px;
+  width: 16px;
+}
+.icon-flag-gb{
+  background-image : url(../flags/gb.png);
+  background-size: cover;
+  display: inline-block;
+  height: 11px;
+  width: 16px;
+}
 /* 
  *  table replace 
  *  inspired by https://medium.com/@snowleo208/how-to-create-responsive-table-d1662cb62075

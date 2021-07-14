@@ -24,7 +24,7 @@ function before($route = array())
         session_start();
     }  
     //Make sure a lang session is set, default to english
-    if(! $_SESSION["lang"]){
+    if(! isset($_SESSION["lang"]) ) {
       $_SESSION["lang"] = "en";
     }
 

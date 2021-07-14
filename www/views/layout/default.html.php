@@ -37,7 +37,7 @@ $timezone = date('O'); //+0200
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link href="/assets/css/light-bootstrap-dashboard.css?v=2.0.1a" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/css/app.css?5" rel="stylesheet" />
+    <link href="/assets/css/app.css?7" rel="stylesheet" />
     <script type="text/javascript">
         //calculate clock with php server time
         var serverTime = <?php echo $serverTime;?>,
@@ -124,9 +124,11 @@ $timezone = date('O'); //+0200
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    <a class="btn btn-success btn-outline" href="./?/lang/nl">NL</a>
-                    <a class="btn btn-success btn-outline" href="./?/lang/fr">FR</a>
-                    <a class="btn btn-success btn-outline" href="./?/lang/en">EN</a>
+                	<?=  L::language ?><br/>
+                	<!--- https://github.com/tkrotoff/famfamfam_flags --->
+                    <a class="btn btn-success btn-sm active" href="./?/lang/nl"><i class="icon-flag-nl"></i> NL</a>
+                    <a class="btn btn-success btn-sm" href="./?/lang/fr"><i class="icon-flag-fr"></i> FR</a>
+                    <a class="btn btn-success btn-sm" href="./?/lang/en"><i class="icon-flag-gb"></i> EN</a>                 
                 </div>
                 <div class="sidebar-footer">
                     Flexess Duo v0.4.3

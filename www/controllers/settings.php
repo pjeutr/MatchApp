@@ -8,7 +8,7 @@ template used:
 http://vlib.clausvb.de/docs/multihtml/vlibtemplate/tutorial_simple_example.html
 
 */
-define('ISPC_CLASS_PATH', '/maasland_app/www/lib/vlibtemplate');
+define('ISPC_CLASS_PATH', 'lib/vlibtemplate');
 require "lib/vlibtemplate/tpl.inc.php";
 
 function settings_index() {

@@ -118,7 +118,8 @@ function handleUserAccess($user, $reader_id) {
 
     //APB, if the user is back within APB time, deny access
     $lastSeen = new DateTime($user->last_seen, new DateTimeZone('Europe/Amsterdam'));
-    $diff =  $now->getTimestamp() - $lastSeen->getTimestamp();
+    //TODO fix timezone mess -getOffset is a hack?
+    $diff =  $now->getTimestamp() - $now->getOffset() - $lastSeen->getTimestamp();
     $apb = find_setting_by_name('apb'); //apb is defined in seconds
     mylog("lastseen=".$lastSeen->format("c")." now=".$now->format("c")." diff=".$diff." seconds\n");
     if($diff < $apb) {

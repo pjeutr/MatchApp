@@ -21,7 +21,7 @@ $timezone = date('O'); //+0200
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= $_SESSION["lang"] ?>">
 
 <head>
     <meta charset="utf-8" />
@@ -70,25 +70,25 @@ $timezone = date('O'); //+0200
                     <li <?php echo ($id == 0) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/dash">
                             <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>Dashboard</p>
+                            <p><?=  L::dashboard_name ?></p>
                         </a>
                     </li>
                     <li <?php echo ($id == 1) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/users">
                             <i class="nc-icon nc-single-02"></i>
-                            <p>Users</p>
+                            <p><?php echo L::users; ?></p>
                         </a>
                     </li>
                     <li <?php echo ($id == 2) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/groups">
                             <i class="nc-icon nc-circle-09"></i>
-                            <p>Groups</p>
+                            <p><?php echo L::groups; ?></p>
                         </a>
                     </li>
                     <li <?php echo ($id == 3) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
                         <a class="nav-link" href="./?/doors">
                             <i class="nc-icon nc-bank"></i>
-                            <p>Doors</p>
+                            <p><?php echo L::doors; ?></p>
                         </a>
                     </li>
                     <li <?php echo ($id == 4) ? 'class="nav-item active"' : 'class="nav-item "' ?>>
@@ -124,7 +124,12 @@ $timezone = date('O'); //+0200
                     </li>
                 </ul>
                 <div class="sidebar-footer">
-                    Flexess Duo v0.4.2
+                    <a class="btn btn-success btn-outline" href="./?/lang/nl">NL</a>
+                    <a class="btn btn-success btn-outline" href="./?/lang/fr">FR</a>
+                    <a class="btn btn-success btn-outline" href="./?/lang/en">EN</a>
+                </div>
+                <div class="sidebar-footer">
+                    Flexess Duo v0.4.3
                 </div>
             </div>
         </div>

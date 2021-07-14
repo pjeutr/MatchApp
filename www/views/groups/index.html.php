@@ -15,7 +15,7 @@ $message = flash_now();
                 
                 <div class="card">
                     <div class="card-header">
-                    	<?= iconLink_to('New group', 'groups/new', 'btn-outline') ?>
+                    	<?= iconLink_to(L::button_new." ".L::group, 'groups/new', 'btn-outline') ?>
                     </div>
                     <div class="card-body">
 
@@ -26,9 +26,9 @@ $message = flash_now();
                                     <?= $group->name ?>
                                 </div>
                                 <div class="card-body">
-                                    <?= iconLink_to("Edit", 'groups/'.$group->id.'/edit', 'btn-link text-success', null) ?>
+                                    <?= iconLink_to(L::button_edit, 'groups/'.$group->id.'/edit', 'btn-link text-success', null) ?>
                                     &nbsp;
-                                    <?= deleteLink_to('Delete', 'groups', $group->id) ?>   
+                                    <?= deleteLink_to(L::button_delete, 'groups', $group->id) ?>   
                                 </div>   
                             </div>
                             <div class="col-sm-8 border rounded-right">
@@ -66,9 +66,9 @@ $message = flash_now();
                                             </div>
                                             <div class="col-sm-4 form-group mt-4">
                                             <button type="submit" class="btn btn-link text-success">
-                                              <i class="fa fa-edit"></i> Change
+                                              <i class="fa fa-edit"></i> <?= L::button_change ?>
                                             </button>
-                                            <?= deleteLink_to('Delete', 'grules', $rule->id) ?> 
+                                            <?= deleteLink_to(L::button_delete, 'grules', $rule->id) ?> 
                                             </div>
 
                                         </div>

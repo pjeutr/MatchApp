@@ -1,6 +1,7 @@
 <?php
 
 require_once('lib/limonade.php');
+require_once 'lib/i18n.class.php';
 
 function configure() {
     $env = $_SERVER['HTTP_HOST'] == 'library.dev' ? ENV_DEVELOPMENT : ENV_PRODUCTION;
@@ -18,6 +19,27 @@ function configure() {
 
 function before($route = array())
 {   
+    //start session
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }  
+    //Make sure a lang session is set, default to english
+    if(! $_SESSION["lang"]){
+      $_SESSION["lang"] = "en";
+    }
+
+    //Load language file
+    //$i18n = new i18n();
+    $i18n = new i18n('languages/lang_{LANGUAGE}.ini', 'langcache/', 'en');
+    // $i18n->setCachePath('./tmp/cache');
+    // $i18n->setFilePath('lib/php-i18n/lang/lang_{LANGUAGE}.ini'); // language file path
+    // $i18n->setFallbackLang('en');
+    // $i18n->setPrefix('I');
+    $i18n->setForcedLang($_SESSION["lang"]); // force english, even if another user language is available
+    // $i18n->setSectionSeparator('_');
+    // $i18n->setMergeFallback(false); // make keys available from the fallback language
+    $i18n->init();
+
     //authentication
     //error_log("l=".request_method()."_".request_uri());
     //Allow login POST to submit
@@ -86,7 +108,12 @@ function logout_page() {
   return render('login.html.php', null);
 }
 
-
+//set language session
+dispatch_get('lang/:lang',  'set_lang');
+function set_lang() {
+    $_SESSION["lang"] = params('lang');
+    redirect_to('http://'.$_SERVER['HTTP_HOST'].'/');
+}
 
 // main controller
 dispatch('/', 'dashboard_page');

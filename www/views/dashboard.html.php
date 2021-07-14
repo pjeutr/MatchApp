@@ -68,7 +68,7 @@ $doors = find_doors();
                         <h4 class="card-title">Maasland - Flexess Duo</h4>
                     </div>
                     <div class="card-body">
-                                This controller has
+                                <?=  L("dashboard_title", ":"); ?>
                         <div class="typography-line">
                             <p>
                                 <span>Hardware</span>
